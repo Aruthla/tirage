@@ -1,0 +1,50 @@
+.payment-step {
+    h2 {
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+  
+    .payment-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+  
+      label {
+        font-weight: 500;
+        cursor: pointer;
+  
+        input {
+          margin-right: 0.5rem;
+        }
+      }
+    }
+  
+    .form-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+  
+      .btn {
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+  
+        &.back {
+          background-color: #ccc;
+        }
+  
+        &.next {
+          background-color: #28a745;
+          color: white;
+        }
+  
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+  
