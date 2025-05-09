@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/tirage/static/css/main.0ff48d2c.css",
+    "main.js": "/tirage/static/js/main.de07941e.js",
+    "index.html": "/tirage/index.html",
+    "main.0ff48d2c.css.map": "/tirage/static/css/main.0ff48d2c.css.map",
+    "main.de07941e.js.map": "/tirage/static/js/main.de07941e.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0ff48d2c.css",
+    "static/js/main.de07941e.js"
+  ]
+}
