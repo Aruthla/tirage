@@ -1,0 +1,56 @@
+@import './utils/variables';
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $color-background;
+  padding: 20px 40px;
+  border-bottom: 2px solid $color-border;
+  box-shadow: 0 4px 6px $color-shadow;
+  color: white;
+
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: $color-title;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 30px;
+
+    a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: $color-hover;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+
+    .nav-links {
+      flex-direction: column;
+      width: 100%;
+      margin-top: 15px;
+      gap: 15px;
+
+      a {
+        width: 100%;
+        text-align: left;
+      }
+    }
+  }
+}

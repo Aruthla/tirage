@@ -1,127 +1,128 @@
 import React, { useState } from 'react';
 import '../styles/TirageType.scss';
 
-const tirages = [
-  { value: '1_conseil', label: 'Tirage 1 rune : Conseil' },
-  { value: '1_futur', label: 'Tirage 1 rune : Futur' },
-  { value: '3_ppf', label: 'Tirage 3 runes : Passé, Présent, Futur' },
-  { value: '3_pfc', label: 'Tirage 3 runes : Présent, Futur, Conseil' },
-  { value: '4_sous_questions', label: 'Tirage 4 runes avec sous-questions' },
-];
+const TirageType = ({ onNext, onBack }) => {
+  const [selectedType, setSelectedType] = useState('');
+  const [selectedQuestions, setSelectedQuestions] = useState([]);
 
-const sousQuestionsList = [
-  "Vers quoi s'oriente...",
-  "Comment va se dérouler...",
-  "Quel conseil puis-je obtenir...",
-  "À quel obstacle dois-je m’attendre ?",
-  "Quelle aide pourrait m’être apportée ?",
-  "Comment suis-je perçu dans cette relation...",
-  "Est-ce le bon moment pour une relation sentimentale ?",
-  "Quelles sont les possibilités d’une relation amoureuse...",
-  "Quelles qualités devrais-je rechercher chez un partenaire ?",
-  "Comment améliorer ma relation actuelle ?",
-  "Quels sont les points forts de notre relation ?",
-  "Quels sont les sentiments de l’autre personne ?",
-  "Quelles compétences développer pour ma carrière ?",
-  "Quel message l’univers a-t-il pour ma croissance spirituelle ?",
-  "Quels aspects à considérer avant ma décision ?",
-  "Comment pourraient se dérouler les prochains mois ?",
-  "Quelle transition est inévitable en ce moment ?",
-  "Comment accueillir les changements à venir ?",
-  "Comment faire face aux conflits familiaux ?",
-  "Autre sous-question (à préciser)",
-];
+  const tirages = [
+    'Tirage 1 rune : Conseil',
+    'Tirage 1 rune : Futur',
+    'Tirage 3 runes : Passé, Présent, Futur',
+    'Tirage 3 runes : Présent, Futur, Conseil',
+    'Tirage 4 runes : Question personnalisée'
+  ];
 
-const TirageType = ({ nextStep, prevStep, data, onChange }) => {
-  const [selectedSub, setSelectedSub] = useState(data.sousQuestions || []);
-  const [customSub, setCustomSub] = useState(data.customSub || '');
-
-  const handleTirageChange = (e) => {
-    onChange({ tirageType: e.target.value });
+  const questionCategories = {
+    Travail: [
+      'Vers quoi s’oriente ce projet ?',
+      'Quelles compétences devrais-je développer pour avancer dans ma carrière ?',
+      'Comment suis-je perçu dans cette relation professionnelle ?'
+    ],
+    Études: [
+      'Comment va se dérouler cet apprentissage ?',
+      'Comment va se dérouler cet examen ?',
+      'Comment va se dérouler cette formation ?'
+    ],
+    Relations: [
+      'Est-ce le bon moment pour envisager une relation sentimentale ?',
+      'Quelles sont les possibilités d’une relation amoureuse dans les six prochains mois ?',
+      'Quelles sont les qualités que je devrais rechercher chez un partenaire ?',
+      'Comment puis-je améliorer la situation de ma relation actuelle ?',
+      'Quels sont les points forts de notre relation ?',
+      'Quels sont les sentiments de l’autre personne à mon égard ?',
+      'Comment suis-je perçu dans cette relation sentimentale, amicale, familiale ?'
+    ],
+    Vie_personnelle: [
+      'Quel message l’univers a-t-il pour moi concernant ma croissance spirituelle ?',
+      'Quelle transition est inévitable dans ma vie en ce moment ?',
+      'Comment dois-je accueillir les changements à venir ?',
+      'Comment pourrait se dérouler les prochains mois me concernant ?',
+      'À quel obstacle dois-je m’attendre ?',
+      'Quelle aide pourrait m’être apportée ?',
+      'Quels sont les aspects à considérer avant de prendre ma décision ?'
+    ],
+    Divers: [
+      'Comment va se dérouler ce voyage ?',
+      'Comment va se dérouler cet entretien ?',
+      'Quel conseil puis-je obtenir des runes en lien avec mon questionnement ?',
+      'Comment faire face aux conflits familiaux de manière constructive ?'
+    ]
   };
 
-  const handleSubChange = (e) => {
+  const AUTRE_QUESTION = 'Autre sous-question non référencée dans la liste.';
+
+  const handleQuestionChange = (e) => {
     const { value, checked } = e.target;
-    let updated = checked
-      ? [...selectedSub, value]
-      : selectedSub.filter(q => q !== value);
-    setSelectedSub(updated);
-    onChange({ sousQuestions: updated });
-  };
-
-  const handleCustomChange = (e) => {
-    setCustomSub(e.target.value);
-    onChange({ customSub: e.target.value });
+    setSelectedQuestions(prev =>
+      checked ? [...prev, value] : prev.filter(q => q !== value)
+    );
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (data.tirageType === '4_sous_questions' && selectedSub.length === 0) {
+    if (!selectedType) {
+      alert('Veuillez sélectionner un type de tirage.');
+    } else if (selectedQuestions.length === 0) {
       alert('Veuillez sélectionner au moins une sous-question.');
-      return;
+    } else {
+      onNext({ tirageType: selectedType, questions: selectedQuestions });
     }
-    nextStep();
   };
 
   return (
-    <form onSubmit={handleSubmit} className="tirage-type-form">
-      <fieldset>
-        <legend>Quel type de tirage souhaitez-vous ?</legend>
-        {tirages.map((tirage) => (
-          <div key={tirage.value} className="radio-option">
-            <label>
-              <input
-                type="radio"
-                name="tirageType"
-                value={tirage.value}
-                checked={data.tirageType === tirage.value}
-                onChange={handleTirageChange}
-              />
-              {tirage.label}
-            </label>
-          </div>
-        ))}
-      </fieldset>
+    <form className="tirage-type-form" onSubmit={handleSubmit}>
+      <h2>Choisissez un type de tirage</h2>
+      {tirages.map((type, index) => (
+        <div key={index} className="tirage-option">
+          <input
+            type="radio"
+            id={`tirage-${index}`}
+            name="tirageType"
+            value={type}
+            onChange={(e) => setSelectedType(e.target.value)}
+            checked={selectedType === type}
+          />
+          <label htmlFor={`tirage-${index}`}>{type}</label>
+        </div>
+      ))}
 
-      {data.tirageType === '4_sous_questions' && (
-        <div className="sous-questions">
-          <h3>Choisissez au moins une sous-question :</h3>
-          {sousQuestionsList.map((q, index) => (
-            <div key={index} className="checkbox-option">
-              <label>
-                <input
-                  type="checkbox"
-                  value={q}
-                  checked={selectedSub.includes(q)}
-                  onChange={handleSubChange}
-                />
-                {q}
-              </label>
+      <h3>Choisissez au moins une sous-question</h3>
+      {Object.entries(questionCategories).map(([category, questions]) => (
+        <fieldset key={category} className="question-category">
+          <legend>{category.replace('_', ' ')}</legend>
+          {questions.map((question, i) => (
+            <div key={i} className="question-option">
+              <input
+                type="checkbox"
+                id={`question-${category}-${i}`}
+                value={question}
+                onChange={handleQuestionChange}
+                checked={selectedQuestions.includes(question)}
+              />
+              <label htmlFor={`question-${category}-${i}`}>{question}</label>
             </div>
           ))}
-          {selectedSub.includes("Autre sous-question (à préciser)") && (
-            <div className="custom-sub">
-              <label>
-                Précisez votre sous-question :
-                <textarea
-                  value={customSub}
-                  onChange={handleCustomChange}
-                  rows="3"
-                  className="custom-textarea"
-                />
-              </label>
-            </div>
-          )}
-        </div>
-      )}
+        </fieldset>
+      ))}
 
-      <div className="form-nav">
-        <button type="button" onClick={prevStep} className="btn back">
-          Retour
-        </button>
-        <button type="submit" className="btn next">
-          Suivant
-        </button>
+      <fieldset className="question-category autre-question">
+        <legend>Autre</legend>
+        <div className="question-option">
+          <input
+            type="checkbox"
+            id="question-autre"
+            value={AUTRE_QUESTION}
+            onChange={handleQuestionChange}
+            checked={selectedQuestions.includes(AUTRE_QUESTION)}
+          />
+          <label htmlFor="question-autre">{AUTRE_QUESTION}</label>
+        </div>
+      </fieldset>
+
+      <div className="navigation-buttons">
+        <button type="button" onClick={onBack}>Précédent</button>
+        <button type="submit">Suivant</button>
       </div>
     </form>
   );

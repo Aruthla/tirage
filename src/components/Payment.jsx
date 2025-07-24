@@ -1,67 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../styles/Payment.scss';
 
-const Payment = ({ nextStep, prevStep, data, onChange }) => {
-  const [selectedMethod, setSelectedMethod] = useState('');
-  const [isProcessing, setIsProcessing] = useState(false);
-
-  const handleSelect = (e) => {
-    setSelectedMethod(e.target.value);
-  };
-
-  const handlePayment = (e) => {
-    e.preventDefault();
-    if (!selectedMethod) {
-      alert('Veuillez sélectionner un mode de paiement.');
-      return;
-    }
-
-    // Simulation de traitement
-    setIsProcessing(true);
-    setTimeout(() => {
-      setIsProcessing(false);
-      onChange({ paiementEffectue: true, methodePaiement: selectedMethod });
-      nextStep();
-    }, 1000); // 1 sec de délai simulé
+const Payment = ({ onSuccess, onBack }) => {
+  const handlePayment = (method) => {
+    // Tu peux ici intégrer PayPal, Stripe ou autre système réel plus tard
+    console.log(`Paiement effectué via ${method}`);
+    onSuccess();
   };
 
   return (
-    <form onSubmit={handlePayment} className="payment-step">
-      <h2>Méthode de paiement</h2>
-
-      <div className="payment-options">
-        <label>
-          <input
-            type="radio"
-            name="paiement"
-            value="paypal"
-            checked={selectedMethod === 'paypal'}
-            onChange={handleSelect}
-          />
-          PayPal
-        </label>
-
-        <label>
-          <input
-            type="radio"
-            name="paiement"
-            value="cb"
-            checked={selectedMethod === 'cb'}
-            onChange={handleSelect}
-          />
-          Carte Bancaire
-        </label>
+    <div className="payment">
+      <h2>Étape 3 : Paiement</h2>
+      <p>Choisissez votre méthode de paiement :</p>
+      <div className="payment-buttons">
+        <button onClick={() => handlePayment('Carte Bleue')}>Payer par Carte Bleue</button>
+        <button onClick={() => handlePayment('PayPal')}>Payer avec PayPal</button>
       </div>
-
-      <div className="form-nav">
-        <button type="button" onClick={prevStep} className="btn back">
-          Retour
-        </button>
-        <button type="submit" className="btn next" disabled={isProcessing}>
-          {isProcessing ? 'Traitement...' : 'Payer'}
-        </button>
-      </div>
-    </form>
+      <button onClick={onBack}>Précédent</button>
+    </div>
   );
 };
 

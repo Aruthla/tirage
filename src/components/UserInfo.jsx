@@ -1,90 +1,85 @@
 import React, { useState } from 'react';
 import '../styles/UserInfo.scss';
 
-const UserInfo = ({ nextStep, data, onChange }) => {
-  const [errors, setErrors] = useState({});
+const UserInfo = ({ onNext }) => {
+  const [formData, setFormData] = useState({
+    nom: '',
+    prenom: '',
+    email: '',
+    telephone: '',
+    genre: ''
+  });
 
-  const handleInputChange = (e) => {
-    onChange({ [e.target.name]: e.target.value });
-  };
-
-  const validate = () => {
-    const newErrors = {};
-
-    if (!data.nom.trim()) newErrors.nom = 'Le nom est requis';
-    if (!data.prenom.trim()) newErrors.prenom = 'Le prénom est requis';
-    if (!data.email.trim()) {
-      newErrors.email = 'L’email est requis';
-    } else if (!/\S+@\S+\.\S+/.test(data.email)) {
-      newErrors.email = 'Email invalide';
-    }
-
-    return newErrors;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-    } else {
-      setErrors({});
-      nextStep();
-    }
+    onNext(formData);
   };
 
   return (
-    <form className="user-info-form" onSubmit={handleSubmit}>
-      <h2>🧾 Informations personnelles</h2>
+    <form className='user-info-form' onSubmit={handleSubmit}>
+      <h2>Informations personnelles</h2>
 
-      <div className="form-group">
-        <label htmlFor="nom">Nom *</label>
-        <input
-          type="text"
-          id="nom"
-          name="nom"
-          value={data.nom}
-          onChange={handleInputChange}
-        />
-        {errors.nom && <span className="error">{errors.nom}</span>}
+      <input
+        type="text"
+        name="nom"
+        placeholder="Nom"
+        value={formData.nom}
+        onChange={handleChange}
+        required
+      />
+      <input
+        type="text"
+        name="prenom"
+        placeholder="Prénom"
+        value={formData.prenom}
+        onChange={handleChange}
+        required
+      />
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        value={formData.email}
+        onChange={handleChange}
+        required
+      />
+      <input
+        type="tel"
+        name="telephone"
+        placeholder="Téléphone (optionnel)"
+        value={formData.telephone}
+        onChange={handleChange}
+      />
+
+      <select
+        name="genre"
+        value={formData.genre}
+        onChange={handleChange}
+        required
+      >
+        <option value="">Genre</option>
+        <option value="Femme">Femme</option>
+        <option value="Homme">Homme</option>
+        <option value="Autre">Autre / Préfère ne pas dire</option>
+      </select>
+
+      <div className="disclaimer">
+        <p>⚠️ <strong>Veuillez noter :</strong></p>
+        <ul>
+          <li>❌ Le domaine de la santé, la mort ou la disparition d’une personne ne seront pas traités.</li>
+          <li>❌ Aucun tirage ne sera réalisé à la place d’un tiers.</li>
+          <li>❌ Aucun tirage ne sera effectué concernant un mineur, une personne sous tutelle ou curatelle.</li>
+          <li>✅ Je procède à l’interprétation de votre tirage et vous envoie le résultat par email.</li>
+          <li>📧 Il est essentiel de fournir un email valide pour recevoir votre tirage. Pensez à vérifier votre dossier spam ou indésirable.</li>
+        </ul>
       </div>
 
-      <div className="form-group">
-        <label htmlFor="prenom">Prénom *</label>
-        <input
-          type="text"
-          id="prenom"
-          name="prenom"
-          value={data.prenom}
-          onChange={handleInputChange}
-        />
-        {errors.prenom && <span className="error">{errors.prenom}</span>}
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="email">Adresse e-mail *</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={data.email}
-          onChange={handleInputChange}
-        />
-        {errors.email && <span className="error">{errors.email}</span>}
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="telephone">Téléphone (optionnel)</label>
-        <input
-          type="tel"
-          id="telephone"
-          name="telephone"
-          value={data.telephone}
-          onChange={handleInputChange}
-        />
-      </div>
-
-      <button type="submit" className="btn next">Suivant</button>
+      <button className='btn next' type="submit">Suivant</button>
     </form>
   );
 };

@@ -1,67 +1,74 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/Confirmation.scss';
 
-const Confirmation = ({ data, prevStep }) => {
+const Confirmation = ({ formData }) => {
   const [isSent, setIsSent] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleSend = () => {
-    // TODO : Remplacer ceci par l'envoi réel avec backend ou service d'email
-    console.log('📩 Données à envoyer :', data);
-    setIsSent(true);
+  const formatRunes = (runes) => {
+    return runes.map(rune => rune.isReversed ? `${rune.name} (inversée)` : rune.name).join(', ');
   };
 
-  if (isSent) {
-    return (
-      <div className="confirmation-message">
-        <h2>✅ Votre tirage a bien été envoyé !</h2>
-        <p>Un e-mail de confirmation a été transmis au praticien.</p>
-        <p>Merci pour votre confiance 🙏</p>
-      </div>
-    );
-  }
+  useEffect(() => {
+    const sendData = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/form', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) throw new Error('Échec de l’envoi du formulaire');
+
+        setIsSent(true);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    sendData();
+  }, [formData]);
+
+  const handleReturnHome = () => {
+    navigate('/');
+  };
 
   return (
-    <div className="confirmation-step">
-      <h2>📋 Récapitulatif</h2>
-      
-      <div className="summary-box">
-        <h3>Informations personnelles :</h3>
-        <p><strong>Nom :</strong> {data.nom}</p>
-        <p><strong>Prénom :</strong> {data.prenom}</p>
-        <p><strong>Email :</strong> {data.email}</p>
-        {data.telephone && <p><strong>Téléphone :</strong> {data.telephone}</p>}
-      </div>
+    <div className="confirmation">
+      <h2>Confirmation</h2>
 
-      <div className="summary-box">
-        <h3>Type de tirage :</h3>
-        <p>{data.tirageType.replace(/_/g, ' ')}</p>
-        {data.sousQuestions?.length > 0 && (
-          <>
-            <h4>Sous-questions :</h4>
-            <ul>
-              {data.sousQuestions.map((q, i) => (
-                <li key={i}>{q}</li>
-              ))}
-            </ul>
-            {data.contexte && <p><strong>Contexte :</strong> {data.contexte}</p>}
-          </>
+      {isSent ? (
+        <p>Votre tirage a bien été envoyé. Merci ! 🙏</p>
+      ) : error ? (
+        <p className="error">Erreur : {error}</p>
+      ) : (
+        <p>Envoi en cours...</p>
+      )}
+
+      <div className="resume">
+        <h3>Résumé :</h3>
+        <p><strong>Nom :</strong> {formData.nom}</p>
+        <p><strong>Prénom :</strong> {formData.prenom}</p>
+        <p><strong>Email :</strong> {formData.email}</p>
+        {formData.telephone && <p><strong>Téléphone :</strong> {formData.telephone}</p>}
+        {formData.sexe && <p><strong>Sexe :</strong> {formData.sexe}</p>}
+        {formData.modePaiement && <p><strong>Paiement :</strong> {formData.modePaiement}</p>}
+
+        {formData.tirageType?.tirageType && (
+          <p><strong>Type de tirage :</strong> {formData.tirageType.tirageType}</p>
         )}
+
+        {formData.tirageType?.questions?.length > 0 && (
+          <p><strong>Sous-question(s) sélectionnée(s) :</strong> {formData.tirageType.questions.join(', ')}</p>
+        )}
+
+        <p><strong>Runes tirées :</strong> {formatRunes(formData.runes)}</p>
       </div>
 
-      <div className="summary-box">
-        <h3>Runes tirées :</h3>
-        <ul>
-          {data.tirageRunes.map((rune, i) => (
-            <li key={i}>
-              {i + 1}. {rune.name} {rune.reversed ? '🔄 (Inversée)' : ''}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="form-nav">
-        <button onClick={prevStep} className="btn back">Retour</button>
-        <button onClick={handleSend} className="btn next">Envoyer</button>
+      <div className="navigation-buttons">
+        <button type="button" onClick={handleReturnHome}>Retour à l’accueil</button>
       </div>
     </div>
   );

@@ -1,124 +1,71 @@
-.rune-step {
-    padding: 2rem;
-  
-    h2 {
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
-      color: #333;
+@import './utils/variables';
+
+.rune-selection {
+  padding: 40px;
+  color: $color-shadow;
+
+  h2 {
+    color: $color-title;
+    margin-bottom: 20px;
+  }
+
+  .rune-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+  }
+
+  .rune {
+    width: 80px;
+    height: 80px;
+    border: 2px solid $color-border;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: $color-background;
+    color: white;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px $color-shadow;
+    text-align: center;
+
+    &.selected {
+      background-color: $color-hover;
     }
-  
-    .rune-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
-  
-      .rune-tile {
-        background-color: #f8f8f8;
-        border: 2px solid transparent;
-        padding: 1rem;
-        border-radius: 10px;
-        font-size: 1rem;
-        text-align: center;
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  
-        &:hover:not(:disabled) {
-          background-color: #e3f2fd;
-          border-color: #2196f3;
-        }
-  
-        &.selected {
-          background-color: #d0f0c0;
-          border-color: #4caf50;
-          cursor: default;
-        }
-  
-        &:disabled {
-          opacity: 0.6;
-          cursor: not-allowed;
-        }
-      }
-    }
-  
-    .selected-display {
-      margin-bottom: 2rem;
-      background-color: #fffbe6;
-      padding: 1rem 1.5rem;
-      border: 1px solid #f0e68c;
-      border-radius: 10px;
-  
-      h3 {
-        margin-bottom: 0.75rem;
-        color: #444;
-      }
-  
-      ul {
-        list-style-type: none;
-        padding-left: 0;
-  
-        li {
-          font-size: 1rem;
-          margin-bottom: 0.5rem;
-          display: flex;
-          align-items: center;
-  
-          &::before {
-            content: '✨';
-            margin-right: 0.5rem;
-          }
-        }
-      }
-  
-      .btn.reset {
-        margin-top: 1rem;
-        padding: 0.5rem 1rem;
-        border: none;
-        background-color: #ff9800;
-        color: white;
-        border-radius: 5px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background 0.2s;
-  
-        &:hover {
-          background-color: #e68900;
-        }
-      }
-    }
-  
-    .form-nav {
-      display: flex;
-      justify-content: space-between;
-  
-      .btn {
-        padding: 0.6rem 1.5rem;
-        font-size: 1rem;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: bold;
-        transition: background-color 0.2s;
-  
-        &.back {
-          background-color: #b0bec5;
-          color: #fff;
-  
-          &:hover {
-            background-color: #90a4ae;
-          }
-        }
-  
-        &.next {
-          background-color: #1976d2;
-          color: white;
-  
-          &:hover {
-            background-color: #1565c0;
-          }
-        }
+  }
+
+  .navigation-buttons {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      background-color: $color-button;
+      color: white;
+      padding: 10px 20px;
+      border: 1px solid $color-border;
+      border-radius: 8px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $color-hover;
       }
     }
   }
-  
+}
+
+@media (max-width: 768px) {
+  .rune-selection {
+    padding: 20px;
+
+    .rune-grid {
+      gap: 10px;
+    }
+
+    .navigation-buttons {
+      flex-direction: column;
+      gap: 15px;
+    }
+  }
+}

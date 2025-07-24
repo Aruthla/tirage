@@ -1,0 +1,31 @@
+@import './utils/variables';
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $color-background;
+  color: white;
+  padding: 20px 40px;
+  font-size: 14px;
+  border-top: 2px solid $color-border;
+
+  a {
+    color: $color-title;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      color: $color-hover;
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+}

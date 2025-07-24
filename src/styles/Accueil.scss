@@ -1,0 +1,54 @@
+@import './utils/variables';
+
+.accueil {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  background-color: $color-background;
+  color: white;
+
+  h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: $color-title;
+  }
+
+  p {
+    font-size: 18px;
+    margin-bottom: 30px;
+  }
+
+  .start-button {
+    background-color: $color-button;
+    color: white;
+    padding: 15px 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $color-hover;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .accueil {
+    h1 {
+      font-size: 26px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+    .start-button {
+      width: 100%;
+      padding: 12px 0;
+    }
+  }
+}

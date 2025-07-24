@@ -1,66 +1,57 @@
-.tirage-type-form {
+@import './utils/variables';
+
+.tirage-type {
+  padding: 40px;
+  color: $color-shadow;
+
+  h2 {
+    color: $color-title;
+    margin-bottom: 20px;
+  }
+
+  .option {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  
-    fieldset {
-      border: none;
-      padding: 0;
-  
-      legend {
-        font-weight: bold;
-        margin-bottom: 0.5rem;
-      }
-  
-      .radio-option {
-        margin: 0.3rem 0;
-      }
+    align-items: center;
+    margin-bottom: 15px;
+
+    input[type='radio'] {
+      margin-right: 10px;
     }
-  
-    .sous-questions {
-      margin-top: 1rem;
-  
-      h3 {
-        font-weight: bold;
-        margin-bottom: 0.5rem;
-      }
-  
-      .checkbox-option {
-        margin: 0.2rem 0;
-      }
-  
-      .custom-sub {
-        margin-top: 1rem;
-  
-        .custom-textarea {
-          width: 100%;
-          padding: 0.5rem;
-          border-radius: 4px;
-          border: 1px solid #ccc;
-        }
-      }
+
+    label {
+      cursor: pointer;
     }
-  
-    .form-nav {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 1.5rem;
-  
-      .btn {
-        padding: 0.5rem 1rem;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-  
-        &.back {
-          background-color: #ccc;
-        }
-  
-        &.next {
-          background-color: #007bff;
-          color: white;
-        }
+  }
+
+  .navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+
+    button {
+      background-color: $color-button;
+      color: white;
+      padding: 10px 20px;
+      border: 1px solid $color-border;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      border-radius: 8px;
+
+      &:hover {
+        background-color: $color-hover;
       }
     }
   }
-  
+}
+
+@media (max-width: 768px) {
+  .tirage-type {
+    padding: 20px;
+
+    .navigation-buttons {
+      flex-direction: column;
+      gap: 15px;
+      align-items: stretch;
+    }
+  }
+}

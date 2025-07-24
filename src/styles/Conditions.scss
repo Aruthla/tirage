@@ -1,0 +1,58 @@
+@import './utils/variables';
+
+.conditions-page {
+  display: flex;
+  flex-direction: column;
+  background-color: $color-background;
+  color: white;
+  padding: 40px;
+  min-height: 100vh;
+
+  h1 {
+    font-size: 32px;
+    color: $color-title;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  h2 {
+    font-size: 24px;
+    color: $color-secondery;
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 15px;
+  }
+
+  ul {
+    list-style-type: disc;
+    margin-left: 20px;
+
+    li {
+      margin-bottom: 10px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .conditions-page {
+    padding: 20px;
+
+    h1 {
+      font-size: 24px;
+    }
+
+    h2 {
+      font-size: 18px;
+    }
+
+    p, li {
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+}
