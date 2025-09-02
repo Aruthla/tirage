@@ -4,13 +4,17 @@ import '../styles/TirageType.scss';
 const TirageType = ({ onNext, onBack }) => {
   const [selectedType, setSelectedType] = useState('');
   const [selectedQuestions, setSelectedQuestions] = useState([]);
+  const [openCategory, setOpenCategory] = useState(null);
+  const [customQuestions, setCustomQuestions] = useState([]);
+  const [theme, setTheme] = useState('');
+  const [mainQuestion, setMainQuestion] = useState('');
 
   const tirages = [
-    'Tirage 1 rune : Conseil',
-    'Tirage 1 rune : Futur',
-    'Tirage 3 runes : Passé, Présent, Futur',
-    'Tirage 3 runes : Présent, Futur, Conseil',
-    'Tirage 4 runes : Question personnalisée'
+    { label: 'Tirage 1 rune : Conseil', prix: 10 },
+    { label: 'Tirage 1 rune : Futur', prix: 10 },
+    { label: 'Tirage 3 runes : Passé, Présent, Futur', prix: 22 },
+    { label: 'Tirage 3 runes : Présent, Futur, Conseil', prix: 22 },
+    { label: 'Tirage 4 runes : Question personnalisée', prix: 30 },
   ];
 
   const questionCategories = {
@@ -47,26 +51,74 @@ const TirageType = ({ onNext, onBack }) => {
       'Comment va se dérouler cet entretien ?',
       'Quel conseil puis-je obtenir des runes en lien avec mon questionnement ?',
       'Comment faire face aux conflits familiaux de manière constructive ?'
-    ]
+    ] 
   };
 
-  const AUTRE_QUESTION = 'Autre sous-question non référencée dans la liste.';
+  const toggleCategory = (category) => {
+    setOpenCategory(prev => (prev === category ? null : category));
+  };
 
   const handleQuestionChange = (e) => {
     const { value, checked } = e.target;
+
+    if (checked && selectedQuestions.length + customQuestions.length >= 4) {
+      alert("Vous ne pouvez sélectionner que 4 sous-questions maximum.");
+      return;
+    }
+
     setSelectedQuestions(prev =>
       checked ? [...prev, value] : prev.filter(q => q !== value)
     );
+  };
+
+  const handleCustomQuestionChange = (index, value) => {
+    const updated = [...customQuestions];
+    updated[index] = value;
+    setCustomQuestions(updated);
+  };
+
+  const addCustomQuestion = () => {
+    if (selectedQuestions.length + customQuestions.length >= 4) {
+      alert("Vous ne pouvez sélectionner que 4 sous-questions maximum.");
+      return;
+    }
+    setCustomQuestions(prev => [...prev, '']);
+  };
+
+  const removeCustomQuestion = (index) => {
+    const updated = [...customQuestions];
+    updated.splice(index, 1);
+    setCustomQuestions(updated);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!selectedType) {
       alert('Veuillez sélectionner un type de tirage.');
-    } else if (selectedQuestions.length === 0) {
-      alert('Veuillez sélectionner au moins une sous-question.');
+      return;
+    }
+
+    if (selectedType.includes('4 runes')) {
+      // cas tirage 4 runes → sous-questions obligatoires
+      if (selectedQuestions.length + customQuestions.filter(q => q.trim() !== '').length === 0) {
+        alert('Veuillez sélectionner ou écrire au moins une sous-question.');
+        return;
+      }
+      onNext({
+        tirageType: selectedType,
+        questions: [...selectedQuestions, ...customQuestions.filter(q => q.trim() !== '')],
+      });
     } else {
-      onNext({ tirageType: selectedType, questions: selectedQuestions });
+      // cas tirage 1 ou 3 runes → thème + question libre
+      if (!theme || !mainQuestion.trim()) {
+        alert('Veuillez choisir un thème et écrire votre question.');
+        return;
+      }
+      onNext({
+        tirageType: selectedType,
+        theme,
+        mainQuestion,
+      });
     }
   };
 
@@ -79,46 +131,99 @@ const TirageType = ({ onNext, onBack }) => {
             type="radio"
             id={`tirage-${index}`}
             name="tirageType"
-            value={type}
+            value={type.label}
             onChange={(e) => setSelectedType(e.target.value)}
-            checked={selectedType === type}
+            checked={selectedType === type.label}
           />
-          <label htmlFor={`tirage-${index}`}>{type}</label>
+          <label htmlFor={`tirage-${index}`}>
+            {type.label} — <strong>{type.prix}€</strong>
+          </label>
         </div>
       ))}
 
-      <h3>Choisissez au moins une sous-question</h3>
-      {Object.entries(questionCategories).map(([category, questions]) => (
-        <fieldset key={category} className="question-category">
-          <legend>{category.replace('_', ' ')}</legend>
-          {questions.map((question, i) => (
-            <div key={i} className="question-option">
-              <input
-                type="checkbox"
-                id={`question-${category}-${i}`}
-                value={question}
-                onChange={handleQuestionChange}
-                checked={selectedQuestions.includes(question)}
-              />
-              <label htmlFor={`question-${category}-${i}`}>{question}</label>
+      {/* Bloc des questions */}
+      {selectedType && selectedType.includes('4 runes') ? (
+        <div className='question-section'>
+          <h3>Choisissez jusqu’à 4 sous-questions</h3>
+          {Object.entries(questionCategories).map(([category, questions]) => (
+            <div key={category} className="question-category">
+              <button
+                type="button"
+                className="accordion-toggle"
+                onClick={() => toggleCategory(category)}
+              >
+                {category.replace('_', ' ')}
+              </button>
+              {openCategory === category && (
+                <div className="accordion-content">
+                  {questions.map((question, i) => (
+                    <div key={i} className="question-option">
+                      <input
+                        type="checkbox"
+                        id={`question-${category}-${i}`}
+                        value={question}
+                        onChange={handleQuestionChange}
+                        checked={selectedQuestions.includes(question)}
+                      />
+                      <label htmlFor={`question-${category}-${i}`}>{question}</label>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
-        </fieldset>
-      ))}
 
-      <fieldset className="question-category autre-question">
-        <legend>Autre</legend>
-        <div className="question-option">
-          <input
-            type="checkbox"
-            id="question-autre"
-            value={AUTRE_QUESTION}
-            onChange={handleQuestionChange}
-            checked={selectedQuestions.includes(AUTRE_QUESTION)}
-          />
-          <label htmlFor="question-autre">{AUTRE_QUESTION}</label>
+          <div className="question-category autre-question">
+            <button
+              type="button"
+              className="accordion-toggle"
+              onClick={() => toggleCategory('autre')}
+            >
+              Autre
+            </button>
+            {openCategory === 'autre' && (
+              <div className="accordion-content">
+                {customQuestions.map((question, index) => (
+                  <div key={index} className="custom-question">
+                    <input
+                      type="text"
+                      value={question}
+                      placeholder="Écrivez votre question"
+                      onChange={(e) => handleCustomQuestionChange(index, e.target.value)}
+                    />
+                    <button type="button" onClick={() => removeCustomQuestion(index)}>✕</button>
+                  </div>
+                ))}
+                {customQuestions.length < 4 - selectedQuestions.length && (
+                  <button type="button" className="add-question-btn" onClick={addCustomQuestion}>
+                    + Ajouter une question
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
         </div>
-      </fieldset>
+      ) : (
+        selectedType && (
+          <div className="question-section theme-section">
+            <h3>Votre question</h3>
+            <label>Choisissez un thème :</label>
+            <select value={theme} onChange={(e) => setTheme(e.target.value)}>
+              <option value="">-- Sélectionner un thème --</option>
+              {Object.keys(questionCategories).map((cat) => (
+                <option key={cat} value={cat}>{cat.replace('_', ' ')}</option>
+              ))}
+            </select>
+
+            <label>Écrivez votre question :</label>
+            <textarea
+              value={mainQuestion}
+              onChange={(e) => setMainQuestion(e.target.value)}
+              placeholder="Décrivez brièvement votre question"
+            />
+          </div>
+        )
+      )}
 
       <div className="navigation-buttons">
         <button type="button" onClick={onBack}>Précédent</button>

@@ -1,41 +1,189 @@
 @import './utils/variables';
 
-.tirage-type {
-  padding: 40px;
-  color: $color-shadow;
+.tirage-type-form {
+  background-color: $color-background;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px $color-shadow;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
-  h2 {
+  h2, h3 {
     color: $color-title;
-    margin-bottom: 20px;
+    font-size: 24px;
+    margin-bottom: 10px;
   }
 
-  .option {
+  .tirage-option {
     display: flex;
     align-items: center;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 
-    input[type='radio'] {
+    input[type="radio"] {
       margin-right: 10px;
     }
 
     label {
-      cursor: pointer;
+      font-size: 18px;
+      color: $color-secondery;
     }
   }
 
+  /* --- SECTION QUESTIONS (tirage 4 runes) --- */
+  .question-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border: 2px solid $color-border;
+    padding: 15px;
+    width: 600px;
+    border-radius: 8px;
+    background-color: lighten($color-background, 4%);
+  }
+
+  .question-category {
+    border: 1px solid $color-border;
+    border-radius: 8px;
+    overflow: hidden;
+
+    .accordion-toggle {
+      width: 100%;
+      background-color: $color-button;
+      color: white;
+      padding: 10px 15px;
+      font-size: 18px;
+      text-align: left;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: $color-hover;
+      }
+    }
+
+    .accordion-content {
+      padding: 10px 15px;
+      background-color: lighten($color-background, 5%);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .question-option {
+      display: flex;
+      align-items: center;
+
+      input[type="checkbox"] {
+        margin-right: 8px;
+      }
+
+      label {
+        font-size: 16px;
+        color: $color-title;
+      }
+    }
+  }
+
+  /* --- SECTION AUTRE (questions personnalisées) --- */
+  .autre-question {
+    .accordion-content {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding-top: 10px;
+
+      .custom-question {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+
+        input[type="text"] {
+          flex: 1;
+          padding: 8px;
+          border: 1px solid $color-border;
+          border-radius: 4px;
+        }
+
+        button {
+          background-color: $color-button;
+          color: white;
+          border: none;
+          padding: 6px 10px;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background-color: $color-hover;
+          }
+        }
+      }
+
+      .add-question-btn {
+        align-self: flex-start;
+        background-color: $color-secondery;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: darken($color-secondery, 10%);
+        }
+      }
+    }
+  }
+
+  /* --- SECTION THEME + DESCRIPTION (autres tirages) --- */
+  .theme-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border: 2px solid $color-border;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: lighten($color-background, 8%);
+
+    label {
+      font-size: 16px;
+      color: $color-title;
+      font-weight: bold;
+    }
+
+    input[type="text"], textarea, select {
+      padding: 10px;
+      border: 1px solid $color-border;
+      border-radius: 6px;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+  }
+
+  /* --- BOUTONS --- */
   .navigation-buttons {
     display: flex;
     justify-content: space-between;
-    margin-top: 30px;
+    margin-top: 20px;
 
     button {
       background-color: $color-button;
       color: white;
+      border: none;
       padding: 10px 20px;
-      border: 1px solid $color-border;
+      font-size: 16px;
+      border-radius: 6px;
       cursor: pointer;
-      transition: background-color 0.3s;
-      border-radius: 8px;
+      transition: background-color 0.3s ease;
 
       &:hover {
         background-color: $color-hover;
@@ -44,14 +192,75 @@
   }
 }
 
-@media (max-width: 768px) {
-  .tirage-type {
+/* RESPONSIVE */
+@media screen and (max-width: 768px) {
+  .tirage-type-form {
     padding: 20px;
+
+    h2, h3 {
+      font-size: 20px;
+    }
+
+    .tirage-option label {
+      font-size: 16px;
+    }
+
+    .question-category {
+      .accordion-toggle {
+        font-size: 16px;
+      }
+
+      .question-option label {
+        font-size: 15px;
+      }
+    }
+
+    .autre-question {
+      .accordion-content {
+        .custom-question {
+          flex-direction: column;
+          align-items: stretch;
+
+          input[type="text"] {
+            width: 100%;
+          }
+
+          button {
+            align-self: flex-end;
+            margin-top: 5px;
+          }
+        }
+
+        .add-question-btn {
+          width: 100%;
+          text-align: center;
+          font-size: 15px;
+        }
+      }
+
+      .accordion-toggle {
+        width: 100%;
+        font-size: 16px;
+      }
+    }
+
+    .theme-section {
+      label {
+        font-size: 15px;
+      }
+
+      input[type="text"], textarea {
+        font-size: 14px;
+      }
+    }
 
     .navigation-buttons {
       flex-direction: column;
-      gap: 15px;
-      align-items: stretch;
+      gap: 10px;
+
+      button {
+        width: 100%;
+      }
     }
   }
 }

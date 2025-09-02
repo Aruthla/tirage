@@ -42,6 +42,16 @@ const FormContainer = () => {
     nextStep();
   };
 
+  // Version souple : accepte "1 rune", "1-rune", "tirage 1 rune", etc.
+  const getPriceFromTirage = (type) => {
+    const label = typeof type === 'string' ? type : type.tirageType || '';
+  
+    if (label.includes('1 rune')) return 10;
+    if (label.includes('3 runes')) return 22;
+    if (label.includes('4 runes')) return 30;
+    return 0;
+  };
+
   const finalFormData = {
     ...userInfo,
     tirageType,
@@ -52,7 +62,13 @@ const FormContainer = () => {
     <div className="form-container">
       {step === 1 && <UserInfo onNext={handleUserInfoSubmit} />}
       {step === 2 && <TirageType onNext={handleTirageTypeSubmit} onBack={prevStep} />}
-      {step === 3 && <Payment onSuccess={handlePaymentSuccess} onBack={prevStep} />}
+      {step === 3 && (
+        <Payment
+          amount={getPriceFromTirage(tirageType)}
+          onSuccess={handlePaymentSuccess}
+          onBack={prevStep}
+        />
+      )}
       {step === 4 && isPaymentDone && (
         <RuneSelection
           tirageType={tirageType}

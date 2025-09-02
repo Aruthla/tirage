@@ -14,7 +14,7 @@ const Vente = () => {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <button>Commander sur Amazon</button>
+        <button className='amazon-link'>Commander sur Amazon</button>
       </a>
     </div>
   );

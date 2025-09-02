@@ -1,51 +1,88 @@
 @import './utils/variables';
 
-.paiement {
+.payment {
+  background-color: $color-background;
   padding: 40px;
-  color: $color-shadow;
+  border-radius: 12px;
+  box-shadow: 0 0 10px $color-shadow;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
   h2 {
     color: $color-title;
     margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
   }
 
-  .method {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-
-    input {
-      margin-right: 10px;
-    }
+  p {
+    font-size: 16px;
+    color: $color-button;
+    margin-bottom: 30px;
+    text-align: center;
   }
 
-  .navigation-buttons {
-    margin-top: 30px;
+  .payment-buttons {
     display: flex;
-    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
 
     button {
       background-color: $color-button;
       color: white;
-      padding: 10px 20px;
-      border: 1px solid $color-border;
-      border-radius: 8px;
+      border: 2px solid $color-border;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 10px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
 
       &:hover {
         background-color: $color-hover;
       }
     }
   }
-}
 
-@media (max-width: 768px) {
-  .paiement {
+  > button {
+    background-color: transparent;
+    border: 2px solid $color-button;
+    color: $color-button;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: $color-hover;
+      color: white;
+    }
+  }
+
+  @media (max-width: 600px) {
     padding: 20px;
 
-    .navigation-buttons {
+    h2 {
+      font-size: 20px;
+    }
+
+    .payment-buttons {
       flex-direction: column;
       gap: 15px;
+
+      button {
+        width: 100%;
+      }
+    }
+
+    > button {
+      width: 100%;
+      margin-top: 10px;
     }
   }
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'; 
 import '../styles/RuneSelection.scss';
 
 const reversibleRunes = [
@@ -29,6 +29,7 @@ const RuneSelection = ({ tirageType, onSelect, onBack }) => {
 
   const toggleRune = (rune) => {
     const isSelected = selectedRunes.find(r => r.name === rune);
+
     if (isSelected) {
       setSelectedRunes(prev => prev.filter(r => r.name !== rune));
     } else if (selectedRunes.length < runeCount) {
@@ -44,7 +45,7 @@ const RuneSelection = ({ tirageType, onSelect, onBack }) => {
 
   const handleSubmit = () => {
     if (selectedRunes.length !== runeCount) {
-      alert(`Veuillez sélectionner ${runeCount} rune(s).`);
+      alert(`Veuillez sélectionner exactement ${runeCount} rune(s).`);
       return;
     }
     onSelect(selectedRunes);

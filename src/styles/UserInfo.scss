@@ -1,57 +1,135 @@
+@import './utils/variables';
+
 .user-info-form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+  padding: 40px 20px;
+  background-color: $color-background;
+  color: white;
+
   h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    color: #2c3e50;
+    font-size: 24px;
+    margin-bottom: 24px;
+    color: $color-title;
   }
-  
-  input {
-    margin-bottom: 1.2rem;
-    display: flex;
-    flex-direction: column;
-  
-    ::placeholder {
+
+  input,
+  select {
+    width: 100%;
+    max-width: 400px;
+    padding: 12px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    border: 1px solid $color-border;
+    border-radius: 6px;
+    color: #000;
+
+    &::placeholder {
       font-weight: bold;
-      margin-bottom: 20px;
       color: #333;
     }
-  
-    input {
-      padding: 0.6rem;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 1rem;
-  
-      &:focus {
-        outline: none;
-        border-color: #1976d2;
-      }
+
+    &:focus {
+      outline: none;
+      border-color: $color-hover;
+      box-shadow: 0 0 5px $color-shadow;
     }
-  
-    .error {
-      color: #e53935;
-      font-size: 0.9rem;
-      margin-top: 0.3rem;
+  }
+
+  select {
+    background-color: #fff;
+  }
+
+  .disclaimer {
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid $color-border;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 500px;
+    margin-bottom: 20px;
+    color: #fff;
+    text-align: left;
+
+    p {
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    ul {
+      padding-left: 20px;
+      list-style-type: disc;
+
+      li {
+        margin-bottom: 8px;
+        font-size: 14px;
+        line-height: 1.4;
+      }
     }
   }
 
   .btn.next {
-    background-color: #1976d2;
+    background-color: $color-button;
     color: white;
-    padding: 0.7rem 1.4rem;
-    font-size: 1rem;
+    padding: 14px 28px;
+    font-size: 16px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
-  
+    transition: background-color 0.3s ease;
+
     &:hover {
-      background-color: #1565c0;
+      background-color: $color-hover;
+    }
+  }
+
+  .checkbox-container {
+    max-width: 500px;
+    margin: 20px 0;
+
+    label {
+      font-size: 14px;
+      color: white;
+
+      a {
+        text-decoration: underline;
+
+        &:hover {
+          color: $color-hover;
+        }
+      }
+
+      input[type="checkbox"] {
+        transform: scale(1.2);
+        margin-right: 8px;
+        accent-color: $color-border;
+      }
+    }
+
+    input {
+      width: 15px;
     }
   }
 }
-  
+
+@media (max-width: 768px) {
+  .user-info-form {
+    padding: 30px 10px;
+
+    input,
+    select {
+      width: 100%;
+      font-size: 15px;
+    }
+
+    .disclaimer {
+      padding: 15px;
+      font-size: 13px;
+    }
+
+    .btn.next {
+      width: 100%;
+    }
+  }
+}
