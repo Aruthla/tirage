@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/tirage/static/css/main.0ff48d2c.css",
-    "main.js": "/tirage/static/js/main.de07941e.js",
-    "index.html": "/tirage/index.html",
-    "main.0ff48d2c.css.map": "/tirage/static/css/main.0ff48d2c.css.map",
-    "main.de07941e.js.map": "/tirage/static/js/main.de07941e.js.map"
+    "main.css": "/static/css/main.3db748e0.css",
+    "main.js": "/static/js/main.57a9702f.js",
+    "index.html": "/index.html",
+    "main.3db748e0.css.map": "/static/css/main.3db748e0.css.map",
+    "main.57a9702f.js.map": "/static/js/main.57a9702f.js.map"
   },
   "entrypoints": [
-    "static/css/main.0ff48d2c.css",
-    "static/js/main.de07941e.js"
+    "static/css/main.3db748e0.css",
+    "static/js/main.57a9702f.js"
   ]
 }
