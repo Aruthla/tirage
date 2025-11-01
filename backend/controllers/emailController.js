@@ -1,24 +1,29 @@
 const emailjs = require('@emailjs/nodejs');
-const { getFirstPurchasePromoCode } = require('../services/customerService');
+const { getPromoCodeForAmount } = require('../services/customerService');
 
 /**
  * Envoie un email de bienvenue avec le code promo au nouveau client
  */
 const sendWelcomeEmail = async (req, res) => {
-  const { customerEmail, customerName } = req.body;
+  const { customerEmail, customerName, purchaseAmount } = req.body;
 
   if (!customerEmail) {
     return res.status(400).json({ error: 'Email client manquant' });
   }
 
+  if (!purchaseAmount) {
+    return res.status(400).json({ error: 'Montant de l\'achat manquant' });
+  }
+
   try {
-    const promoCode = getFirstPurchasePromoCode();
+    const promoCode = getPromoCodeForAmount(purchaseAmount);
 
     const templateParams = {
       to_email: customerEmail,
       customer_name: customerName || 'Cher(e) client(e)',
       promo_code: promoCode,
-      from_name: 'Le Murmure des Runes'
+      from_name: 'Le Murmure des Runes',
+      purchase_amount: `${purchaseAmount}€`
     };
 
     await emailjs.send(
@@ -31,8 +36,8 @@ const sendWelcomeEmail = async (req, res) => {
       }
     );
 
-    console.log(`Email de bienvenue envoyé à ${customerEmail} avec code promo ${promoCode}`);
-    res.json({ success: true, message: 'Email envoyé avec succès' });
+    console.log(`Email de bienvenue envoyé à ${customerEmail} avec code promo ${promoCode} (achat: ${purchaseAmount}€)`);
+    res.json({ success: true, message: 'Email envoyé avec succès', promoCode });
   } catch (error) {
     console.error('Erreur envoi email bienvenue:', error);
     res.status(500).json({ error: 'Erreur lors de l\'envoi de l\'email' });

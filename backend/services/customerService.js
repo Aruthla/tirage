@@ -42,17 +42,36 @@ function getCustomer(email) {
 }
 
 /**
- * Génère un code promo pour un nouveau client
- * Note: Le code doit être créé dans Stripe au préalable
+ * Génère un code promo pour un nouveau client selon le montant de son achat
+ * Mapping des montants vers les codes promo
  */
-function getFirstPurchasePromoCode() {
-  // Retourne le code promo à utiliser (doit correspondre à un code créé dans Stripe)
-  return process.env.FIRST_PURCHASE_PROMO_CODE || 'MERCI10';
+function getPromoCodeForAmount(amount) {
+  // Convertir le montant en nombre si c'est une chaîne
+  const purchaseAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
+  
+  // Mapping des tranches de prix vers les codes promo
+  // RUNE1 = 10% réduction pour tirage 10€
+  // RUNE3 = 15% réduction pour tirage 22€
+  // RUNE4 = 20% réduction pour tirage 30€
+  // RUNE6 = 25% réduction pour tirage 45€
+  
+  if (purchaseAmount >= 45) {
+    return 'RUNE6'; // Pour tirage 6 runes (45€)
+  } else if (purchaseAmount >= 30) {
+    return 'RUNE4'; // Pour tirage 4 runes (30€)
+  } else if (purchaseAmount >= 22) {
+    return 'RUNE3'; // Pour tirage 3 runes (22€)
+  } else if (purchaseAmount >= 10) {
+    return 'RUNE1'; // Pour tirage 1 rune (10€)
+  }
+  
+  // Par défaut, retourner RUNE1
+  return process.env.FIRST_PURCHASE_PROMO_CODE || 'RUNE1';
 }
 
 module.exports = {
   hasCustomerPurchased,
   recordCustomerPurchase,
   getCustomer,
-  getFirstPurchasePromoCode
+  getPromoCodeForAmount
 };

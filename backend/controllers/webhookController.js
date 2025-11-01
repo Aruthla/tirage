@@ -1,7 +1,7 @@
 const Stripe = require('stripe');
 const emailjs = require('@emailjs/nodejs');
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-const { recordCustomerPurchase, hasCustomerPurchased, getFirstPurchasePromoCode } = require('../services/customerService');
+const { recordCustomerPurchase, hasCustomerPurchased, getPromoCodeForAmount } = require('../services/customerService');
 
 const handleWebhook = async (req, res) => {
   const sig = req.headers['stripe-signature'];
@@ -36,18 +36,21 @@ const handleWebhook = async (req, res) => {
       // Vérifier si c'est le premier achat
       const isFirstPurchase = customerEmail ? !hasCustomerPurchased(customerEmail) : false;
 
+      // Calculer le montant de l'achat
+      const purchaseAmount = session.amount_total / 100; // Convertir de centimes en euros
+
       // Enregistrer l'achat
       if (customerEmail) {
         recordCustomerPurchase(customerEmail, {
           sessionId: session.id,
-          amount: session.amount_total / 100,
+          amount: purchaseAmount,
           tirageType: tirageType.tirageType || 'N/A',
           productName: session.line_items?.data[0]?.description || 'Tirage de runes'
         });
       }
 
-      // Préparer le code promo pour les nouveaux clients
-      const promoCode = isFirstPurchase ? getFirstPurchasePromoCode() : null;
+      // Préparer le code promo pour les nouveaux clients selon le montant
+      const promoCode = isFirstPurchase ? getPromoCodeForAmount(purchaseAmount) : null;
 
       // Envoi avec EmailJS
       const templateParams = {
@@ -77,14 +80,15 @@ const handleWebhook = async (req, res) => {
       
       // Si c'est le premier achat et qu'on a un email client, envoyer le code promo
       if (isFirstPurchase && customerEmail && promoCode) {
-        console.log(`🎁 Premier achat détecté pour ${customerEmail}, envoi du code promo: ${promoCode}`);
+        console.log(`🎁 Premier achat détecté pour ${customerEmail} (${purchaseAmount}€), envoi du code promo: ${promoCode}`);
         
         try {
           const welcomeTemplateParams = {
             to_email: customerEmail,
             customer_name: `${userInfo.prenom || ''} ${userInfo.nom || ''}`.trim() || 'Cher(e) client(e)',
             promo_code: promoCode,
-            from_name: 'Le Murmure des Runes'
+            from_name: 'Le Murmure des Runes',
+            purchase_amount: `${purchaseAmount}€`
           };
 
           await emailjs.send(
