@@ -20,7 +20,7 @@ const createCheckoutSession = async (req, res) => {
 
     // Configuration de base de la session
     const sessionConfig = {
-      payment_method_types: ['card'],
+      payment_method_types: ['card', 'paypal'],
       mode: 'payment',
       line_items: [
         {
