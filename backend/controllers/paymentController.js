@@ -6,7 +6,18 @@ const { hasCustomerPurchased } = require('../services/customerService');
 const createCheckoutSession = async (req, res) => {
   const { priceId, promoCode, customerEmail, metadata } = req.body;
 
+  console.log('📥 Requête reçue:', { priceId, promoCode, customerEmail, metadata });
+
   try {
+    // Vérifier que priceId est fourni
+    if (!priceId) {
+      console.error('❌ Price ID manquant dans la requête');
+      return res.status(400).json({ 
+        error: 'Price ID manquant',
+        message: 'Le Price ID du produit est requis' 
+      });
+    }
+
     // Configuration de base de la session
     const sessionConfig = {
       payment_method_types: ['card'],
@@ -29,13 +40,16 @@ const createCheckoutSession = async (req, res) => {
 
     // Si un code promo est fourni, le valider et l'appliquer
     if (promoCode) {
+      console.log('🎁 Validation du code promo:', promoCode);
       const promoValidation = await validatePromoCode(promoCode);
       
       if (promoValidation.valid) {
+        console.log('✅ Code promo valide:', promoValidation);
         sessionConfig.discounts = [{
           promotion_code: promoValidation.promoCodeId
         }];
       } else {
+        console.log('❌ Code promo invalide:', promoValidation);
         return res.status(400).json({ 
           error: 'Code promo invalide',
           message: promoValidation.message 
@@ -43,12 +57,18 @@ const createCheckoutSession = async (req, res) => {
       }
     }
 
+    console.log('🔄 Création de la session Stripe avec config:', sessionConfig);
     const session = await stripe.checkout.sessions.create(sessionConfig);
+    console.log('✅ Session créée avec succès:', session.id);
 
     res.json({ url: session.url });
   } catch (error) {
-    console.error('Erreur création session Stripe:', error);
-    res.status(500).json({ error: 'Erreur création session Stripe' });
+    console.error('❌ Erreur création session Stripe:', error);
+    console.error('Détails de l\'erreur:', error.message, error.type);
+    res.status(500).json({ 
+      error: 'Erreur création session Stripe',
+      message: error.message 
+    });
   }
 };
 
