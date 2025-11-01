@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const paymentRoutes = require('./routes/paymentRoutes');
+const productRoutes = require('./routes/productRoutes');
 const { handleWebhook } = require('./controllers/webhookController');
 
 const app = express();
@@ -14,6 +15,7 @@ app.post('/api/webhook', express.raw({ type: 'application/json' }), handleWebhoo
 
 app.use(express.json());
 app.use('/api', paymentRoutes);
+app.use('/api', productRoutes);
 
 app.listen(PORT, () => {
   console.log(`Serveur démarré sur le port ${PORT}`);
