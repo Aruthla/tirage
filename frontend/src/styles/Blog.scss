@@ -1,0 +1,114 @@
+@import './utils/variables';
+
+.blog {
+  min-height: 80vh;
+  padding: $spacing-xxl $spacing-lg;
+  background-color: $color-background;
+
+  .blog-container {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    h1 {
+      color: $color-primary;
+      font-size: $font-size-title;
+      font-weight: $font-weight-bold;
+      text-align: center;
+      margin-bottom: $spacing-md;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .no-articles {
+      text-align: center;
+      padding: $spacing-xxl;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 250, 250, 0.9) 100%);
+      border-radius: $border-radius-xl;
+      border: 2px solid rgba(75, 0, 130, 0.2);
+      margin-top: $spacing-xxl;
+
+      p {
+        font-size: $font-size-lg;
+        color: $color-text-dark;
+        margin-bottom: $spacing-md;
+
+        &:first-child {
+          font-size: $font-size-xxl;
+          font-weight: $font-weight-bold;
+          color: $color-primary;
+        }
+      }
+    }
+
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: $spacing-xl;
+      margin-top: $spacing-xxl;
+    }
+
+    .article-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 250, 250, 0.9) 100%);
+      border: 2px solid rgba(75, 0, 130, 0.2);
+      border-radius: $border-radius-xl;
+      overflow: hidden;
+      transition: all $transition-normal;
+      box-shadow: $box-shadow-md;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: $box-shadow-lg;
+        border-color: $color-primary;
+      }
+
+      .article-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .article-content {
+        padding: $spacing-lg;
+
+        h2 {
+          color: $color-primary;
+          font-size: $font-size-xl;
+          font-weight: $font-weight-bold;
+          margin-bottom: $spacing-sm;
+        }
+
+        .article-date {
+          color: $color-text-light;
+          font-size: $font-size-sm;
+          font-style: italic;
+          margin-bottom: $spacing-md;
+        }
+
+        .article-summary {
+          color: $color-text-dark;
+          font-size: $font-size-base;
+          line-height: 1.6;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .blog {
+    padding: $spacing-xl $spacing-md;
+
+    .blog-container {
+      h1 {
+        font-size: $font-size-xxl;
+      }
+
+      .articles-grid {
+        grid-template-columns: 1fr;
+        gap: $spacing-lg;
+      }
+    }
+  }
+}

@@ -1,0 +1,293 @@
+@import './utils/variables';
+
+.contact {
+  min-height: 80vh;
+  padding: $spacing-xxl $spacing-lg;
+  background-color: $color-background;
+
+  .contact-container {
+    max-width: 1000px;
+    margin: 0 auto;
+
+    h1 {
+      color: $color-primary;
+      font-size: $font-size-title;
+      font-weight: $font-weight-bold;
+      text-align: center;
+      margin-bottom: $spacing-md;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .subtitle {
+      text-align: center;
+      color: $color-text-light;
+      font-size: $font-size-xl;
+      font-style: italic;
+      margin-bottom: $spacing-xxl;
+    }
+  }
+
+  .contact-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: $spacing-xl;
+    margin-bottom: $spacing-xxl;
+  }
+
+  .contact-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 250, 250, 0.9) 100%);
+    border: 2px solid rgba(75, 0, 130, 0.2);
+    border-radius: $border-radius-xl;
+    padding: $spacing-xl;
+    box-shadow: $box-shadow-md;
+    transition: all $transition-normal;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: $box-shadow-lg;
+      border-color: $color-primary;
+    }
+
+    .icon {
+      font-size: 48px;
+      margin-bottom: $spacing-md;
+    }
+
+    h2 {
+      color: $color-primary;
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      margin-bottom: $spacing-md;
+    }
+
+    p {
+      color: $color-text-dark;
+      font-size: $font-size-base;
+      line-height: 1.6;
+      margin-bottom: $spacing-md;
+    }
+
+    .email-link {
+      display: inline-block;
+      background: linear-gradient(135deg, $color-accent 0%, darken($color-accent, 10%) 100%);
+      color: $color-text-dark;
+      padding: $spacing-md $spacing-lg;
+      border-radius: $border-radius-md;
+      text-decoration: none;
+      font-weight: $font-weight-bold;
+      font-size: $font-size-base;
+      transition: all $transition-normal;
+      box-shadow: $box-shadow-sm;
+      margin-top: $spacing-md;
+      word-break: break-all;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: $box-shadow-md;
+        background: linear-gradient(135deg, lighten($color-accent, 5%) 0%, $color-accent 100%);
+      }
+    }
+
+    .response-time {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(75, 0, 130, 0.15) 100%);
+      border: 2px solid $color-accent;
+      border-radius: $border-radius-md;
+      padding: $spacing-md;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      color: $color-primary;
+      margin: $spacing-md 0;
+    }
+
+    .note {
+      font-size: $font-size-sm;
+      color: $color-text-light;
+      font-style: italic;
+      margin-top: $spacing-sm;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: $spacing-md 0;
+      text-align: left;
+
+      li {
+        padding: $spacing-xs 0;
+        padding-left: $spacing-lg;
+        position: relative;
+        color: $color-text-dark;
+        font-size: $font-size-base;
+
+        &::before {
+          content: '✓';
+          position: absolute;
+          left: 0;
+          color: $color-accent;
+          font-weight: $font-weight-bold;
+        }
+      }
+    }
+  }
+
+  .social-section {
+    margin-top: $spacing-xxl;
+    padding: $spacing-xl;
+    background: linear-gradient(135deg, rgba(75, 0, 130, 0.08) 0%, rgba(139, 69, 19, 0.08) 100%);
+    border-radius: $border-radius-xl;
+    border: 2px solid $color-accent;
+    box-shadow: $box-shadow-md;
+
+    h2 {
+      color: $color-primary;
+      font-size: $font-size-xxl;
+      font-weight: $font-weight-bold;
+      text-align: center;
+      margin-bottom: $spacing-lg;
+    }
+
+    .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-lg;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .social-link {
+      display: flex;
+      align-items: center;
+      gap: $spacing-lg;
+      padding: $spacing-lg $spacing-xl;
+      border-radius: $border-radius-lg;
+      text-decoration: none;
+      color: $color-text-dark;
+      box-shadow: $box-shadow-md;
+      transition: all $transition-normal;
+      border-left: 5px solid;
+
+      .icon {
+        font-size: 36px;
+        flex-shrink: 0;
+      }
+
+      .link-content {
+        text-align: left;
+        flex: 1;
+
+        strong {
+          display: block;
+          font-size: $font-size-lg;
+          font-weight: $font-weight-bold;
+          color: $color-primary;
+          margin-bottom: 4px;
+        }
+
+        small {
+          display: block;
+          font-size: $font-size-sm;
+          color: $color-secondary;
+          opacity: 0.8;
+        }
+      }
+
+      &.instagram {
+        border-left-color: #E4405F;
+        background: linear-gradient(135deg, rgba(228, 64, 95, 0.12) 0%, rgba(255, 255, 255, 0.95) 100%);
+
+        &:hover {
+          background: linear-gradient(135deg, rgba(228, 64, 95, 0.25) 0%, rgba(255, 255, 255, 0.95) 100%);
+        }
+      }
+
+      &.etsy {
+        border-left-color: #F1641E;
+        background: linear-gradient(135deg, rgba(241, 100, 30, 0.12) 0%, rgba(255, 255, 255, 0.95) 100%);
+
+        &:hover {
+          background: linear-gradient(135deg, rgba(241, 100, 30, 0.25) 0%, rgba(255, 255, 255, 0.95) 100%);
+        }
+      }
+
+      &:hover {
+        transform: translateY(-4px);
+        box-shadow: $box-shadow-lg;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .contact {
+    padding: $spacing-xl $spacing-md;
+
+    .contact-container {
+      h1 {
+        font-size: $font-size-xxl;
+      }
+
+      .subtitle {
+        font-size: $font-size-lg;
+      }
+    }
+
+    .contact-content {
+      grid-template-columns: 1fr;
+      gap: $spacing-lg;
+    }
+
+    .contact-card {
+      padding: $spacing-lg;
+
+      .icon {
+        font-size: 36px;
+      }
+
+      h2 {
+        font-size: $font-size-lg;
+      }
+
+      p {
+        font-size: $font-size-sm;
+      }
+
+      .email-link {
+        font-size: $font-size-base;
+        padding: $spacing-sm $spacing-md;
+      }
+    }
+
+    .social-section {
+      padding: $spacing-lg;
+
+      h2 {
+        font-size: $font-size-xl;
+      }
+
+      .social-link {
+        padding: $spacing-md $spacing-lg;
+        gap: $spacing-md;
+
+        .icon {
+          font-size: 28px;
+        }
+
+        .link-content {
+          strong {
+            font-size: $font-size-base;
+          }
+
+          small {
+            font-size: 13px;
+          }
+        }
+      }
+    }
+  }
+}

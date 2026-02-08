@@ -1,0 +1,123 @@
+@import './utils/variables';
+
+.confirmation {
+  padding: $spacing-xxl;
+  background-color: $color-background;
+  min-height: 60vh;
+
+  h2 {
+    color: $color-primary;
+    font-size: $font-size-xxl;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-xl;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  p {
+    color: $color-text-white;
+    font-size: $font-size-lg;
+    margin-bottom: $spacing-lg;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .error {
+    color: #ff4444;
+    font-weight: $font-weight-bold;
+    background: rgba(255, 68, 68, 0.1);
+    padding: $spacing-md;
+    border-radius: $border-radius-md;
+    border-left: 4px solid #ff4444;
+  }
+
+  .resume {
+    margin-top: $spacing-xl;
+    background: linear-gradient(135deg, rgba(75, 0, 130, 0.08) 0%, rgba(139, 69, 19, 0.08) 100%);
+    padding: $spacing-xl;
+    border-radius: $border-radius-xl;
+    border: 2px solid $color-accent;
+    box-shadow: $box-shadow-md;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+
+    h3 {
+      color: $color-accent;
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      margin-bottom: $spacing-lg;
+    }
+
+    p {
+      color: $color-text-light;
+      font-size: $font-size-base;
+      margin-bottom: $spacing-md;
+      text-align: left;
+
+      strong {
+        color: $color-accent;
+        font-weight: $font-weight-bold;
+      }
+    }
+  }
+
+  .navigation-buttons {
+    margin-top: $spacing-xxl;
+    display: flex;
+    justify-content: center;
+
+    button {
+      background: linear-gradient(135deg, $color-secondary 0%, darken($color-secondary, 10%) 100%);
+      color: $color-text-white;
+      padding: $spacing-md $spacing-xxl;
+      border: none;
+      border-radius: $border-radius-md;
+      cursor: pointer;
+      font-size: $font-size-base;
+      font-weight: $font-weight-bold;
+      box-shadow: $box-shadow-sm;
+      transition: all $transition-normal;
+
+      &:hover {
+        background: linear-gradient(135deg, $color-hover 0%, darken($color-hover, 10%) 100%);
+        transform: translateY(-2px);
+        box-shadow: $box-shadow-md;
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .confirmation {
+    padding: $spacing-lg;
+
+    h2 {
+      font-size: $font-size-xl;
+    }
+
+    p {
+      font-size: $font-size-base;
+    }
+
+    .resume {
+      padding: $spacing-lg;
+
+      h3 {
+        font-size: $font-size-lg;
+      }
+
+      p {
+        font-size: $font-size-sm;
+      }
+    }
+
+    .navigation-buttons button {
+      width: 100%;
+    }
+  }
+}

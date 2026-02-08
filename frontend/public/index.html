@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/corbeau.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#4B0082" />
+    
+    <!-- Description SEO -->
+    <meta
+      name="description"
+      content="Tirage de runes en ligne personnalisé par email. Divination, voyance et guidance par les runes vikings. Réponses sous 48h. De 10€ à 45€."
+    />
+    <meta name="keywords" content="tirage runes, tirage runes en ligne, divination runes, voyance runes, oracle runique, runes vikings, consultation runes, guidance spirituelle" />
+    <meta name="author" content="Secrets des Runes" />
+    <meta name="google-site-verification" content="HUhZzgW8gBfqBNPJ06EgXMMcxnr7BFDez8vwx1AjjPI" />
+    <link rel="canonical" href="https://secretsdesrunes.com/" />
+    
+    <!-- Open Graph / Facebook / Instagram -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://secretsdesrunes.com/" />
+    <meta property="og:title" content="Tirage de Runes en Ligne - Divination et Voyance | Secrets des Runes" />
+    <meta property="og:description" content="Tirage de runes personnalisé par email sous 48h. Guidance spirituelle et divination par les runes vikings. Consultations de 10€ à 45€." />
+    <meta property="og:image" content="https://secretsdesrunes.com/og-image.jpg" />
+    <meta property="og:locale" content="fr_FR" />
+    <meta property="og:site_name" content="Secrets des Runes" />
+    
+    <!-- Twitter Card -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://secretsdesrunes.com/" />
+    <meta property="twitter:title" content="Tirage de Runes en Ligne - Divination et Voyance" />
+    <meta property="twitter:description" content="Tirage de runes personnalisé par email sous 48h. Guidance spirituelle et divination par les runes vikings." />
+    <meta property="twitter:image" content="https://secretsdesrunes.com/og-image.jpg" />
+    
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Start Single Page Apps for GitHub Pages -->
+    <script type="text/javascript">
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location))
+    </script>
+    <!-- End Single Page Apps for GitHub Pages -->
+    
+    <!-- Netlify Identity Widget for Decap CMS -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    
+    <title>Tirage de Runes en Ligne - Divination et Voyance | Secrets des Runes</title>
+  </head>
+  <body>
+    <noscript>Vous devez activer JavaScript pour utiliser cette application.</noscript>
+    <div id="root"></div>
+    
+    <!-- Netlify Identity redirect handler -->
+    <script>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

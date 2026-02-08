@@ -1,0 +1,9 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://secretsdesrunes.com/sitemap.xml
+
+# Interdire l'indexation des fichiers de build
+Disallow: /static/

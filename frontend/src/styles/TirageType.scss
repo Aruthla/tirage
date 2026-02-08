@@ -1,0 +1,468 @@
+@import './utils/variables';
+
+.tirage-type-form {
+  background-color: $color-background;
+  padding: $spacing-xl;
+  border-radius: $border-radius-xl;
+  box-shadow: $box-shadow-lg;
+  width: 800px;
+  max-width: calc(100vw - 40px);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  h2, h3 {
+    color: $color-primary;
+    font-size: $font-size-xxl;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-md;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .tirage-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacing-md;
+    max-width: 100%;
+
+    input[type="radio"] {
+      width: 20px;
+      height: 20px;
+      margin-right: $spacing-md;
+      cursor: pointer;
+      accent-color: $color-primary;
+      flex-shrink: 0;
+    }
+
+    label {
+      font-size: $font-size-lg;
+      font-weight: $font-weight-medium;
+      color: $color-text-white;
+      cursor: pointer;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      flex: 1;
+      min-width: 0;
+    }
+  }
+
+  /* --- SECTION QUESTIONS (tirage 4 runes) --- */
+  .question-section {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    border: 2px solid $color-accent;
+    padding: $spacing-lg;
+    width: 100%;
+    border-radius: $border-radius-lg;
+    background: linear-gradient(135deg, rgba(75, 0, 130, 0.08) 0%, rgba(139, 69, 19, 0.08) 100%);
+    box-shadow: $box-shadow-sm;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    h4 {
+      color: $color-primary;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      margin-bottom: $spacing-sm;
+      margin-top: $spacing-lg;
+    }
+
+    .theme-selection {
+      margin-bottom: $spacing-lg;
+
+      label {
+        display: block;
+        color: $color-text-dark;
+        font-weight: $font-weight-bold;
+        margin-bottom: $spacing-sm;
+      }
+
+      select {
+        width: 100%;
+        padding: $spacing-md;
+        border: 2px solid $color-border;
+        border-radius: $border-radius-md;
+        font-size: $font-size-base;
+        background-color: white;
+        cursor: pointer;
+        transition: border-color $transition-normal;
+
+        &:focus {
+          outline: none;
+          border-color: $color-primary;
+        }
+      }
+    }
+
+    .info-box {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(75, 0, 130, 0.1) 100%);
+      border: 2px solid $color-accent;
+      border-radius: $border-radius-md;
+      padding: $spacing-md;
+      margin-bottom: $spacing-lg;
+
+      p {
+        margin: $spacing-sm 0;
+        color: $color-text-dark;
+        font-size: $font-size-base;
+        line-height: 1.6;
+
+        strong {
+          color: $color-primary;
+        }
+      }
+    }
+
+    .example-questions {
+      margin-bottom: $spacing-lg;
+    }
+
+    .custom-questions-section {
+      border-top: 2px solid $color-accent;
+      padding-top: $spacing-lg;
+      margin-top: $spacing-lg;
+    }
+  }
+
+  .question-category {
+    border: 2px solid $color-border;
+    border-radius: $border-radius-md;
+    overflow: hidden;
+    box-shadow: $box-shadow-sm;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: $spacing-sm;
+
+    &.example {
+      opacity: 0.9;
+    }
+
+    .accordion-toggle {
+      width: 100%;
+      background: linear-gradient(135deg, $color-secondary 0%, darken($color-secondary, 10%) 100%);
+      color: $color-text-white;
+      padding: $spacing-md $spacing-lg;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      text-align: left;
+      border: none;
+      cursor: pointer;
+      transition: all $transition-normal;
+      display: block;
+      box-sizing: border-box;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: normal;
+
+      &:hover {
+        background: linear-gradient(135deg, $color-hover 0%, darken($color-hover, 10%) 100%);
+        transform: translateX(4px);
+      }
+    }
+
+    .accordion-content {
+      padding: $spacing-md $spacing-lg;
+      background-color: $color-card-bg;
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-sm;
+      width: 100%;
+      box-sizing: border-box;
+      overflow-x: hidden;
+    }
+
+    .question-example {
+      padding: $spacing-sm;
+      font-size: $font-size-base;
+      color: $color-text-dark;
+      line-height: 1.6;
+      font-style: italic;
+      opacity: 0.9;
+      
+      span {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+      }
+    }
+
+    .question-option {
+      display: flex;
+      align-items: flex-start;
+      width: 100%;
+      box-sizing: border-box;
+
+      input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        margin-right: $spacing-sm;
+        margin-top: 2px;
+        cursor: pointer;
+        accent-color: $color-primary;
+        flex-shrink: 0;
+      }
+
+      label {
+        font-size: $font-size-base;
+        color: $color-text-dark;
+        cursor: pointer;
+        line-height: 1.5;
+        flex: 1;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        max-width: calc(100% - 26px);
+      }
+    }
+  }
+
+  /* --- SECTION QUESTIONS PERSONNALISÉES --- */
+  .custom-question {
+    display: flex;
+    gap: $spacing-md;
+    align-items: center;
+    width: 100%;
+    margin-bottom: $spacing-md;
+    background: rgba(255, 255, 255, 0.7);
+    padding: $spacing-sm;
+    border-radius: $border-radius-md;
+    border: 2px solid $color-border;
+    transition: border-color $transition-normal;
+
+    &:hover {
+      border-color: $color-primary;
+    }
+
+    .question-number {
+      background: linear-gradient(135deg, $color-primary 0%, darken($color-primary, 10%) 100%);
+      color: $color-text-white;
+      padding: $spacing-xs $spacing-sm;
+      border-radius: $border-radius-sm;
+      font-weight: $font-weight-bold;
+      font-size: $font-size-sm;
+      flex-shrink: 0;
+      min-width: 35px;
+      text-align: center;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      min-width: 0;
+      padding: $spacing-sm $spacing-md;
+      border: 2px solid $color-border;
+      border-radius: $border-radius-sm;
+      font-size: $font-size-base;
+      font-family: $font-family-base;
+      transition: border-color $transition-fast;
+      box-sizing: border-box;
+
+      &:focus {
+        outline: none;
+        border-color: $color-primary;
+        box-shadow: 0 0 0 3px rgba(75, 0, 130, 0.1);
+      }
+    }
+
+    .remove-btn {
+      background: linear-gradient(135deg, #dc3545 0%, darken(#dc3545, 10%) 100%);
+      color: $color-text-white;
+      border: none;
+      padding: $spacing-sm $spacing-md;
+      border-radius: $border-radius-sm;
+      cursor: pointer;
+      transition: all $transition-normal;
+      font-weight: $font-weight-bold;
+      flex-shrink: 0;
+      font-size: $font-size-lg;
+      width: 35px;
+      height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        background: linear-gradient(135deg, darken(#dc3545, 10%) 0%, darken(#dc3545, 20%) 100%);
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  .add-question-btn {
+    align-self: flex-start;
+    background: linear-gradient(135deg, $color-accent 0%, darken($color-accent, 10%) 100%);
+    color: $color-text-dark;
+    border: 2px solid $color-accent;
+    padding: $spacing-md $spacing-lg;
+    border-radius: $border-radius-md;
+    cursor: pointer;
+    transition: all $transition-normal;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-base;
+    margin-top: $spacing-md;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: $box-shadow-md;
+      background: linear-gradient(135deg, lighten($color-accent, 5%) 0%, $color-accent 100%);
+    }
+  }
+
+  /* --- SECTION THEME + DESCRIPTION (autres tirages) --- */
+  .theme-section {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+    border: 2px solid $color-accent;
+    padding: $spacing-lg;
+    border-radius: $border-radius-lg;
+    background: linear-gradient(135deg, rgba(75, 0, 130, 0.08) 0%, rgba(139, 69, 19, 0.08) 100%);
+    box-shadow: $box-shadow-sm;
+    box-sizing: border-box;
+
+    label {
+      font-size: $font-size-base;
+      color: $color-text-white;
+      font-weight: $font-weight-bold;
+    }
+
+    input[type="text"], textarea, select {
+      width: 100%;
+      padding: $spacing-md;
+      border: 2px solid $color-border;
+      border-radius: $border-radius-md;
+      font-size: $font-size-base;
+      font-family: $font-family-base;
+      background-color: $color-card-bg;
+      transition: all $transition-normal;
+      box-sizing: border-box;
+
+      &:focus {
+        outline: none;
+        border-color: $color-primary;
+        box-shadow: 0 0 8px rgba(75, 0, 130, 0.3);
+      }
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+  }
+
+  /* --- BOUTONS --- */
+  .navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: $spacing-lg;
+    gap: $spacing-md;
+
+    button {
+      background: linear-gradient(135deg, $color-secondary 0%, darken($color-secondary, 10%) 100%);
+      color: $color-text-white;
+      border: none;
+      padding: $spacing-md $spacing-lg;
+      font-size: $font-size-base;
+      font-weight: $font-weight-bold;
+      border-radius: $border-radius-md;
+      cursor: pointer;
+      transition: all $transition-normal;
+      box-shadow: $box-shadow-sm;
+
+      &:hover {
+        background: linear-gradient(135deg, $color-hover 0%, darken($color-hover, 10%) 100%);
+        transform: translateY(-2px);
+        box-shadow: $box-shadow-md;
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: $breakpoint-tablet) {
+  .tirage-type-form {
+    padding: $spacing-lg;
+    width: calc(100vw - 32px);
+    max-width: 100%;
+
+    h2, h3 {
+      font-size: $font-size-xl;
+    }
+
+    .tirage-option label {
+      font-size: $font-size-base;
+    }
+
+    .question-section {
+      padding: $spacing-md;
+    }
+
+    .question-category {
+      .accordion-toggle {
+        font-size: $font-size-base;
+        padding: $spacing-sm $spacing-md;
+      }
+
+      .question-option label {
+        font-size: $font-size-sm;
+      }
+    }
+
+    .autre-question {
+      .accordion-content {
+        .custom-question {
+          flex-direction: column;
+          align-items: stretch;
+
+          input[type="text"] {
+            width: 100%;
+          }
+
+          button {
+            align-self: flex-end;
+            margin-top: $spacing-xs;
+          }
+        }
+
+        .add-question-btn {
+          width: 100%;
+          text-align: center;
+          font-size: $font-size-sm;
+        }
+      }
+
+      .accordion-toggle {
+        width: 100%;
+        font-size: $font-size-base;
+      }
+    }
+
+    .theme-section {
+      padding: $spacing-md;
+
+      label {
+        font-size: $font-size-sm;
+      }
+
+      input[type="text"], textarea {
+        font-size: $font-size-sm;
+        padding: $spacing-sm;
+      }
+    }
+
+    .navigation-buttons {
+      flex-direction: column;
+      gap: $spacing-md;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,228 @@
+@import './utils/variables';
+
+.payment {
+  background-color: $color-background;
+  padding: $spacing-xxl;
+  border-radius: $border-radius-xl;
+  box-shadow: $box-shadow-lg;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 50vh;
+
+  h2 {
+    color: $color-primary;
+    font-size: $font-size-xxl;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-lg;
+    text-align: center;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  p {
+    font-size: $font-size-lg;
+    color: $color-text-white;
+    margin-bottom: $spacing-xl;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  .promo-section {
+    width: 100%;
+    margin-bottom: $spacing-xl;
+    text-align: center;
+
+    .show-promo-btn {
+      background: linear-gradient(135deg, rgba($color-accent, 0.2) 0%, rgba($color-primary, 0.2) 100%);
+      border: 2px solid $color-accent;
+      color: $color-text-white;
+      padding: $spacing-md $spacing-xl;
+      font-size: $font-size-base;
+      font-weight: $font-weight-bold;
+      border-radius: $border-radius-lg;
+      cursor: pointer;
+      transition: all $transition-normal;
+      box-shadow: 0 0 15px rgba($color-accent, 0.3);
+      animation: pulse-glow 2s ease-in-out infinite;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+
+      &:hover {
+        background: linear-gradient(135deg, rgba($color-accent, 0.4) 0%, rgba($color-primary, 0.3) 100%);
+        transform: scale(1.08);
+        box-shadow: 0 0 20px rgba($color-accent, 0.5);
+        color: $color-text-white;
+      }
+
+      &:active {
+        transform: scale(1.05);
+      }
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% {
+        box-shadow: 0 0 15px rgba($color-accent, 0.3);
+      }
+      50% {
+        box-shadow: 0 0 25px rgba($color-accent, 0.5);
+      }
+    }
+
+    .promo-input-group {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-sm;
+
+      .promo-input {
+        width: 100%;
+        padding: $spacing-md;
+        font-size: $font-size-base;
+        border: 2px solid $color-accent;
+        border-radius: $border-radius-md;
+        background: rgba(255, 255, 255, 0.1);
+        color: $color-text-white;
+        text-align: center;
+        font-weight: $font-weight-bold;
+        letter-spacing: 2px;
+        transition: all $transition-normal;
+
+        &:focus {
+          outline: none;
+          border-color: $color-primary;
+          background: rgba(255, 255, 255, 0.15);
+          box-shadow: 0 0 10px rgba($color-accent, 0.3);
+        }
+
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.5);
+          letter-spacing: normal;
+        }
+      }
+
+      small {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: $font-size-xs;
+        font-style: italic;
+      }
+    }
+  }
+
+  .payment-buttons {
+    display: flex;
+    gap: $spacing-lg;
+    margin-bottom: $spacing-xl;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    button {
+      background: linear-gradient(135deg, $color-secondary 0%, darken($color-secondary, 10%) 100%);
+      color: $color-text-white;
+      border: 2px solid $color-accent;
+      padding: $spacing-md $spacing-xl;
+      font-size: $font-size-base;
+      font-weight: $font-weight-bold;
+      border-radius: $border-radius-lg;
+      cursor: pointer;
+      transition: all $transition-normal;
+      box-shadow: $box-shadow-sm;
+
+      &:hover {
+        background: linear-gradient(135deg, $color-hover 0%, darken($color-hover, 10%) 100%);
+        transform: translateY(-2px);
+        box-shadow: $box-shadow-md;
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+
+      &:disabled {
+        background: linear-gradient(135deg, rgba($color-secondary, 0.5) 0%, rgba(darken($color-secondary, 10%), 0.5) 100%);
+        cursor: not-allowed;
+        opacity: 0.6;
+
+        &:hover {
+          transform: none;
+          box-shadow: $box-shadow-sm;
+        }
+      }
+    }
+  }
+
+  .loading-message {
+    text-align: center;
+    color: $color-accent;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    margin: $spacing-xl 0;
+    padding: $spacing-lg;
+    background: rgba($color-accent, 0.1);
+    border: 2px solid $color-accent;
+    border-radius: $border-radius-lg;
+    animation: pulse 2s ease-in-out infinite;
+
+    .loading-note {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: $font-size-sm;
+      font-weight: $font-weight-normal;
+      font-style: italic;
+      margin-top: $spacing-sm;
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+
+  > button {
+    background-color: transparent;
+    border: 2px solid $color-accent;
+    color: $color-accent;
+    padding: $spacing-md $spacing-lg;
+    border-radius: $border-radius-lg;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: all $transition-normal;
+
+    &:hover {
+      background: linear-gradient(135deg, $color-accent 0%, darken($color-accent, 10%) 100%);
+      color: $color-text-dark;
+      transform: translateY(-2px);
+      box-shadow: $box-shadow-sm;
+    }
+  }
+
+  @media (max-width: $breakpoint-mobile) {
+    padding: $spacing-lg;
+
+    h2 {
+      font-size: $font-size-xl;
+    }
+
+    p {
+      font-size: $font-size-base;
+    }
+
+    .payment-buttons {
+      flex-direction: column;
+      gap: $spacing-md;
+      width: 100%;
+
+      button {
+        width: 100%;
+      }
+    }
+
+    > button {
+      width: 100%;
+      margin-top: $spacing-md;
+    }
+  }
+}

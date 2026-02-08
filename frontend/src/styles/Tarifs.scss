@@ -1,0 +1,244 @@
+@import './utils/variables';
+
+.tarifs {
+  min-height: 80vh;
+  padding: $spacing-xxl $spacing-lg;
+  background-color: $color-background;
+
+  .tarifs-header {
+    text-align: center;
+    margin-bottom: $spacing-xxl;
+    
+    h1 {
+      color: $color-primary;
+      font-size: $font-size-title;
+      font-weight: $font-weight-bold;
+      margin-bottom: $spacing-md;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .subtitle {
+      font-size: $font-size-xl;
+      color: $color-text-light;
+      font-style: italic;
+    }
+  }
+
+  .tarifs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: $spacing-xl;
+    max-width: 1400px;
+    margin: 0 auto $spacing-xxl;
+    padding: 0 $spacing-md;
+  }
+
+  .tirage-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 250, 250, 0.9) 100%);
+    border: 2px solid rgba(75, 0, 130, 0.2);
+    border-radius: $border-radius-xl;
+    padding: $spacing-xl;
+    box-shadow: $box-shadow-md;
+    transition: all $transition-normal;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: $box-shadow-lg;
+      border-color: $color-primary;
+    }
+
+    &.popular {
+      border-color: $color-accent;
+      border-width: 3px;
+
+      &:hover {
+        border-color: $color-accent;
+      }
+    }
+
+    &.premium {
+      border-color: $color-primary;
+      border-width: 3px;
+      background: linear-gradient(135deg, rgba(75, 0, 130, 0.08) 0%, rgba(255, 255, 255, 0.95) 100%);
+
+      &:hover {
+        border-color: $color-primary;
+        background: linear-gradient(135deg, rgba(75, 0, 130, 0.12) 0%, rgba(255, 255, 255, 0.95) 100%);
+      }
+    }
+
+    .badge {
+      position: absolute;
+      top: -12px;
+      right: 20px;
+      background: linear-gradient(135deg, $color-accent 0%, darken($color-accent, 10%) 100%);
+      color: $color-text-dark;
+      padding: $spacing-xs $spacing-md;
+      border-radius: $border-radius-md;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-bold;
+      box-shadow: $box-shadow-sm;
+
+      &.premium-badge {
+        background: linear-gradient(135deg, $color-primary 0%, darken($color-primary, 10%) 100%);
+        color: $color-text-white;
+      }
+    }
+
+    h2 {
+      color: $color-primary;
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      margin-bottom: $spacing-md;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+    }
+
+    .price {
+      font-size: 2.5rem;
+      font-weight: $font-weight-bold;
+      color: $color-accent;
+      margin-bottom: $spacing-md;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .description {
+      color: $color-text-dark;
+      font-size: $font-size-base;
+      line-height: 1.6;
+      margin-bottom: $spacing-lg;
+      font-style: italic;
+      min-height: 48px;
+    }
+
+    .features {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex-grow: 1;
+
+      li {
+        padding: $spacing-sm 0;
+        color: $color-text-dark;
+        font-size: $font-size-base;
+        display: flex;
+        align-items: center;
+        gap: $spacing-sm;
+
+        .check {
+          color: $color-accent;
+          font-weight: $font-weight-bold;
+          font-size: $font-size-xl;
+          flex-shrink: 0;
+        }
+      }
+    }
+  }
+
+  .tarifs-cta {
+    text-align: center;
+    margin-top: $spacing-xxl;
+    padding: $spacing-xl;
+    background: linear-gradient(135deg, rgba(75, 0, 130, 0.08) 0%, rgba(139, 69, 19, 0.08) 100%);
+    border-radius: $border-radius-xl;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+
+    p {
+      font-size: $font-size-xl;
+      color: $color-primary;
+      font-weight: $font-weight-bold;
+      margin-bottom: $spacing-lg;
+    }
+
+    .cta-button {
+      background: linear-gradient(135deg, $color-secondary 0%, #6d3410 100%);
+      color: $color-text-white;
+      padding: $spacing-lg $spacing-xxl;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-bold;
+      border: 2px solid $color-accent;
+      border-radius: $border-radius-lg;
+      cursor: pointer;
+      box-shadow: $box-shadow-md;
+      transition: all $transition-normal;
+      min-width: 250px;
+
+      &::before {
+        content: '✨';
+        margin-right: $spacing-sm;
+        font-size: $font-size-xl;
+      }
+
+      &:hover {
+        background: linear-gradient(135deg, $color-hover 0%, #8f4519 100%);
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: $box-shadow-lg;
+        border-color: lighten($color-accent, 10%);
+      }
+
+      &:active {
+        transform: translateY(-1px) scale(1);
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .tarifs {
+    padding: $spacing-xl $spacing-md;
+
+    .tarifs-header {
+      h1 {
+        font-size: $font-size-xxl;
+      }
+
+      .subtitle {
+        font-size: $font-size-lg;
+      }
+    }
+
+    .tarifs-grid {
+      grid-template-columns: 1fr;
+      gap: $spacing-lg;
+    }
+
+    .tirage-card {
+      h2 {
+        font-size: $font-size-lg;
+        min-height: auto;
+      }
+
+      .price {
+        font-size: 2rem;
+      }
+
+      .description {
+        font-size: $font-size-sm;
+        min-height: auto;
+      }
+
+      .features li {
+        font-size: $font-size-sm;
+      }
+    }
+
+    .tarifs-cta {
+      padding: $spacing-lg $spacing-md;
+
+      p {
+        font-size: $font-size-lg;
+      }
+
+      .cta-button {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+  }
+}

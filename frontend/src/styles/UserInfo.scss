@@ -1,0 +1,185 @@
+@import './utils/variables';
+
+.user-info-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $spacing-xxl $spacing-lg;
+  background-color: $color-background;
+  min-height: 60vh;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  border-radius: $border-radius-xl;
+  box-shadow: $box-shadow-lg;
+  box-sizing: border-box;
+
+  h2 {
+    font-size: $font-size-xxl;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-xl;
+    color: $color-primary;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  input,
+  select {
+    width: 100%;
+    max-width: 400px;
+    padding: $spacing-md;
+    margin-bottom: $spacing-lg;
+    font-size: $font-size-base;
+    font-family: $font-family-base;
+    border: 2px solid $color-border;
+    border-radius: $border-radius-md;
+    color: $color-text-dark;
+    background-color: $color-card-bg;
+    transition: all $transition-normal;
+
+    &::placeholder {
+      font-weight: $font-weight-medium;
+      color: $color-text-light;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $color-primary;
+      box-shadow: 0 0 8px rgba(75, 0, 130, 0.3);
+    }
+  }
+
+  select {
+    cursor: pointer;
+  }
+
+  .disclaimer {
+    background: linear-gradient(135deg, rgba(75, 0, 130, 0.1) 0%, rgba(139, 69, 19, 0.1) 100%);
+    border: 2px solid $color-accent;
+    border-radius: $border-radius-lg;
+    padding: $spacing-lg;
+    max-width: 500px;
+    margin-bottom: $spacing-lg;
+    color: $color-text-white;
+    text-align: left;
+    box-shadow: $box-shadow-sm;
+
+    p {
+      font-weight: $font-weight-bold;
+      font-size: $font-size-lg;
+      color: $color-accent;
+      margin-bottom: $spacing-md;
+    }
+
+    ul {
+      padding-left: $spacing-lg;
+      list-style-type: disc;
+
+      li {
+        margin-bottom: $spacing-sm;
+        font-size: $font-size-base;
+        line-height: 1.5;
+        color: $color-text-light;
+      }
+    }
+  }
+
+  .btn.next {
+    background: linear-gradient(135deg, $color-secondary 0%, darken($color-secondary, 10%) 100%);
+    color: $color-text-white;
+    padding: $spacing-md $spacing-xl;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    border: none;
+    border-radius: $border-radius-md;
+    cursor: pointer;
+    box-shadow: $box-shadow-sm;
+    transition: all $transition-normal;
+    min-width: 200px;
+
+    &:hover {
+      background: linear-gradient(135deg, $color-hover 0%, darken($color-hover, 10%) 100%);
+      transform: translateY(-2px);
+      box-shadow: $box-shadow-md;
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  .checkbox-container {
+    max-width: 500px;
+    margin: $spacing-lg 0;
+    background: linear-gradient(135deg, rgba(75, 0, 130, 0.15) 0%, rgba(139, 69, 19, 0.15) 100%);
+    padding: $spacing-md;
+    border-radius: $border-radius-md;
+    border: 2px solid $color-accent;
+
+    label {
+      font-size: $font-size-base;
+      color: $color-text-dark;
+      display: flex;
+      align-items: flex-start;
+      gap: $spacing-md;
+      line-height: 1.6;
+
+      input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        accent-color: $color-primary;
+        flex-shrink: 0;
+        margin-top: 3px;
+      }
+
+      span {
+        flex: 1;
+        color: $color-text-dark;
+      }
+
+      a {
+        color: $color-primary;
+        text-decoration: underline;
+        transition: color $transition-fast;
+
+        &:hover {
+          color: $color-hover-light;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .user-info-form {
+    padding: $spacing-xl $spacing-md;
+
+    h2 {
+      font-size: $font-size-xl;
+    }
+
+    input,
+    select {
+      width: 100%;
+      font-size: $font-size-sm;
+      padding: $spacing-sm;
+    }
+
+    .disclaimer {
+      padding: $spacing-md;
+      
+      p {
+        font-size: $font-size-base;
+      }
+
+      ul li {
+        font-size: 13px;
+      }
+    }
+
+    .btn.next {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+}

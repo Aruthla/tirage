@@ -1,0 +1,187 @@
+@import './utils/variables';
+
+.livre {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $spacing-xxl $spacing-lg;
+  background-color: $color-background;
+  min-height: 70vh;
+
+  .livre-container {
+    max-width: 900px;
+    width: 100%;
+    background: linear-gradient(135deg, rgba(75, 0, 130, 0.08) 0%, rgba(139, 69, 19, 0.08) 100%);
+    border-radius: $border-radius-xl;
+    border: 2px solid $color-accent;
+    padding: $spacing-xxl $spacing-xl;
+    box-shadow: $box-shadow-lg;
+
+    h1 {
+      color: $color-primary;
+      font-size: $font-size-title;
+      font-weight: $font-weight-bold;
+      text-align: center;
+      margin-bottom: $spacing-xl;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .rune-image {
+      width: 100%;
+      max-width: 700px;
+      height: auto;
+      border-radius: $border-radius-lg;
+      box-shadow: $box-shadow-lg;
+      margin: $spacing-xl auto;
+      display: block;
+      border: 3px solid $color-accent;
+    }
+
+    .livre-content {
+      margin-bottom: $spacing-xxl;
+
+      .livre-description {
+        h2 {
+          color: $color-primary;
+          font-size: $font-size-xxl;
+          font-weight: $font-weight-bold;
+          margin-bottom: $spacing-lg;
+          text-align: center;
+          text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+          display: block;
+          width: 100%;
+        }
+
+        p {
+          font-size: $font-size-lg;
+          line-height: 1.8;
+          color: $color-text-dark;
+          margin-bottom: $spacing-lg;
+          text-align: center;
+
+          strong {
+            color: $color-primary;
+            font-weight: $font-weight-bold;
+          }
+        }
+
+        ul {
+          list-style: none;
+          padding: 0;
+          margin: $spacing-xl 0;
+          background-color: rgba(255, 255, 255, 0.6);
+          border-radius: $border-radius-lg;
+          padding: $spacing-lg;
+          border-left: 4px solid $color-accent;
+
+          li {
+            font-size: $font-size-base;
+            line-height: 1.8;
+            color: $color-text-dark;
+            margin-bottom: $spacing-md;
+            padding-left: $spacing-sm;
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+    }
+
+    .livre-buttons {
+      display: flex;
+      gap: $spacing-lg;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      a {
+        padding: $spacing-lg $spacing-xxl;
+        font-size: $font-size-lg;
+        font-weight: $font-weight-bold;
+        text-decoration: none;
+        border-radius: $border-radius-lg;
+        box-shadow: $box-shadow-md;
+        transition: all $transition-normal;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 250px;
+        border: 2px solid;
+
+        &.amazon-link {
+          background: linear-gradient(135deg, #FF9900 0%, #CC7A00 100%);
+          color: $color-text-dark;
+          border-color: #FFB84D;
+
+          &:hover {
+            background: linear-gradient(135deg, #FFB84D 0%, #FF9900 100%);
+            transform: translateY(-3px);
+            box-shadow: $box-shadow-lg;
+          }
+        }
+
+        &.etsy-link {
+          background: linear-gradient(135deg, #F1641E 0%, #C14F18 100%);
+          color: $color-text-white;
+          border-color: #F77A3F;
+
+          &:hover {
+            background: linear-gradient(135deg, #F77A3F 0%, #F1641E 100%);
+            transform: translateY(-3px);
+            box-shadow: $box-shadow-lg;
+          }
+        }
+
+        &:active {
+          transform: translateY(-1px);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .livre {
+    padding: $spacing-xl $spacing-md;
+
+    .livre-container {
+      padding: $spacing-lg $spacing-md;
+
+      h1 {
+        font-size: $font-size-xxl;
+      }
+
+      .livre-content {
+        .livre-description {
+          h2 {
+            font-size: $font-size-xl;
+          }
+
+          p {
+            font-size: $font-size-base;
+          }
+
+          ul {
+            padding: $spacing-md;
+
+            li {
+              font-size: $font-size-sm;
+            }
+          }
+        }
+      }
+
+      .livre-buttons {
+        flex-direction: column;
+        align-items: center;
+
+        a {
+          width: 100%;
+          max-width: 350px;
+          padding: $spacing-md $spacing-lg;
+        }
+      }
+    }
+  }
+}

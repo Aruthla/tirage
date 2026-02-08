@@ -1,0 +1,92 @@
+// ========================================
+// 🎨 PALETTE DE COULEURS
+// ========================================
+
+// Couleurs principales
+$color-primary: #4B0082;        // Violet profond (titres, headers)
+$color-secondary: #8B4513;      // Marron chaleureux (boutons, accents)
+$color-accent: #D4AF37;         // Or royal (bordures, highlights)
+$color-success: #228B22;        // Vert forêt (validations)
+
+// Couleurs de fond
+$color-background: #c9cdda;     // Gris-bleu doux (fond général)
+$color-card-bg: #ffffff;        // Blanc (cartes, sections)
+$color-section-bg: #f9f9f9;     // Gris très clair (sections alternées)
+
+// Couleurs interactives
+$color-hover: #B87333;          // Bronze (hover boutons)
+$color-hover-light: #6A0DAD;    // Violet clair (hover liens)
+
+// Couleurs de texte
+$color-text-dark: #333333;      // Texte principal
+$color-text-light: #666666;     // Texte secondaire
+$color-text-white: #ffffff;     // Texte sur fond sombre
+
+// Couleurs d'état
+$color-error: #DC143C;          // Rouge (erreurs)
+$color-warning: #FFA500;        // Orange (avertissements)
+$color-info: #4682B4;           // Bleu (informations)
+
+// Bordures et ombres
+$color-border: $color-accent;   // Bordures principales
+$color-border-light: #e0e0e0;   // Bordures légères
+$color-shadow: rgba(0, 0, 0, 0.1);      // Ombre par défaut
+$color-shadow-hover: rgba(0, 0, 0, 0.15); // Ombre au survol
+
+// ========================================
+// 📐 ESPACEMENTS & DIMENSIONS
+// ========================================
+
+$spacing-xs: 8px;
+$spacing-sm: 12px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
+$spacing-xxl: 48px;
+
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+$border-radius-xl: 16px;
+
+// ========================================
+// 🔤 TYPOGRAPHIE
+// ========================================
+
+$font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$font-family-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; // Alias pour compatibilité
+$font-family-decorative: 'Cinzel Decorative', serif; // Police pour titres
+$font-size-xs: 12px;
+$font-size-sm: 14px;
+$font-size-base: 16px;
+$font-size-lg: 18px;
+$font-size-xl: 20px;
+$font-size-xxl: 24px;
+$font-size-title: 32px;
+
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+// ========================================
+// 🎭 EFFETS & TRANSITIONS
+// ========================================
+
+$transition-fast: 0.2s ease;
+$transition-normal: 0.3s ease;
+$transition-slow: 0.5s ease;
+
+$box-shadow-sm: 0 2px 4px $color-shadow;
+$box-shadow-md: 0 4px 12px $color-shadow;
+$box-shadow-lg: 0 6px 20px $color-shadow-hover;
+
+// ========================================
+// 📱 BREAKPOINTS
+// ========================================
+
+$breakpoint-mobile: 480px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1024px;
+$breakpoint-wide: 1440px;
+
+

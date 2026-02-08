@@ -1,0 +1,44 @@
+html, body, #root {
+  height: 100%;
+  width: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  background-color: #c9cdda; /* même couleur que $color-background */
+  box-sizing: border-box;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Styles globaux pour les titres */
+h1, h2 {
+  font-family: 'Cinzel Decorative', serif;
+  letter-spacing: 1px;
+}
+
+/* Sous-titres SEO sous les H1 */
+.subtitle-seo {
+  text-align: center;
+  color: #6B4423;
+  font-size: 1.3rem;
+  font-weight: 600;
+  font-style: italic;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
