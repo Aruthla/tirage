@@ -37,7 +37,7 @@ const Accueil = () => {
       <div className="bio-section">
         <h2>À propos</h2>
         <div className="bio-content">
-          <img src={`${process.env.PUBLIC_URL}/IMG_9859.jpg`} alt="Isabelle - Le Murmure des Runes" className="profile-photo" />
+          <img src={`${process.env.PUBLIC_URL}/IMG_0388.jpg`} alt="Isabelle - Le Murmure des Runes" className="profile-photo" />
           <div className="bio-text">
             <p>
               Je suis <strong>Isabelle</strong>, passionnée depuis de nombreuses années par les runes et la mythologie nordique.
