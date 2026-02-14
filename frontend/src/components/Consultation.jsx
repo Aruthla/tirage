@@ -78,7 +78,7 @@ const Consultation = () => {
           
           <div 
             className="calendly-inline-widget" 
-            data-url="https://calendly.com/lemurmuredesrunes/30min"
+            data-url="https://calendly.com/lemurmuredesrunes/consultation-runique-en-visio"
             style={{ minWidth: '320px', height: '700px' }}
           ></div>
         </div>
