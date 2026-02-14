@@ -53,12 +53,6 @@ const Consultation = () => {
             <li>
               <strong>Conseils pratiques</strong> - Des pistes concrètes pour intégrer les messages des runes dans votre quotidien
             </li>
-            <li>
-              <strong>Compte-rendu écrit</strong> - Un résumé de la consultation et des runes tirées envoyé par email après la séance
-            </li>
-            <li>
-              <strong>Enregistrement</strong> - Possibilité d'enregistrer la séance pour la réécouter (sur demande)
-            </li>
           </ul>
         </div>
 
