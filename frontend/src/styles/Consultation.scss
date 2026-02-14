@@ -1,0 +1,269 @@
+@import './utils/variables';
+
+.consultation {
+  min-height: 80vh;
+  padding: $spacing-xxl $spacing-lg;
+  background-color: $color-background;
+
+  .consultation-container {
+    max-width: 1000px;
+    margin: 0 auto;
+
+    h1 {
+      color: $color-primary;
+      font-size: $font-size-title;
+      font-weight: $font-weight-bold;
+      text-align: center;
+      margin-bottom: $spacing-md;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: $color-primary;
+      font-size: $font-size-xxl;
+      font-weight: $font-weight-bold;
+      text-align: center;
+      margin: $spacing-xxl 0 $spacing-lg;
+    }
+
+    h3 {
+      color: $color-secondary;
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      margin-bottom: $spacing-sm;
+    }
+  }
+
+  .consultation-hero {
+    background: linear-gradient(135deg, rgba(75, 0, 130, 0.12) 0%, rgba(139, 69, 19, 0.12) 100%);
+    border: 2px solid $color-accent;
+    border-radius: $border-radius-xl;
+    padding: $spacing-xxl;
+    margin: $spacing-xxl 0;
+    text-align: center;
+
+    .hero-content {
+      h2 {
+        margin-top: 0;
+        margin-bottom: $spacing-md;
+      }
+
+      p {
+        font-size: $font-size-lg;
+        color: $color-text-dark;
+        line-height: 1.8;
+      }
+    }
+  }
+
+  .consultation-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: $spacing-xl;
+    margin: $spacing-xxl 0;
+
+    .detail-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 250, 250, 0.9) 100%);
+      border: 2px solid rgba(75, 0, 130, 0.2);
+      border-radius: $border-radius-xl;
+      padding: $spacing-xl;
+      text-align: center;
+      transition: all $transition-normal;
+      box-shadow: $box-shadow-md;
+
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: $box-shadow-lg;
+        border-color: $color-primary;
+      }
+
+      .icon {
+        font-size: 48px;
+        margin-bottom: $spacing-md;
+      }
+
+      h3 {
+        text-align: center;
+      }
+
+      .highlight {
+        font-size: $font-size-xxl;
+        font-weight: $font-weight-bold;
+        color: $color-accent;
+        margin: $spacing-sm 0;
+      }
+
+      p {
+        color: $color-text-dark;
+        font-size: $font-size-base;
+      }
+    }
+  }
+
+  .consultation-includes {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 250, 250, 0.9) 100%);
+    border: 2px solid rgba(75, 0, 130, 0.2);
+    border-radius: $border-radius-xl;
+    padding: $spacing-xxl;
+    margin: $spacing-xxl 0;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: $spacing-lg;
+
+      li {
+        font-size: $font-size-lg;
+        color: $color-text-dark;
+        padding: $spacing-md;
+        margin-bottom: $spacing-md;
+        padding-left: $spacing-xxl;
+        position: relative;
+        line-height: 1.7;
+
+        &::before {
+          content: '✓';
+          position: absolute;
+          left: $spacing-md;
+          color: $color-accent;
+          font-size: $font-size-xxl;
+          font-weight: $font-weight-bold;
+        }
+
+        strong {
+          color: $color-primary;
+          font-weight: $font-weight-bold;
+        }
+      }
+    }
+  }
+
+  .booking-section {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(75, 0, 130, 0.1) 100%);
+    border: 3px solid $color-accent;
+    border-radius: $border-radius-xl;
+    padding: $spacing-xxl;
+    margin: $spacing-xxl 0;
+    text-align: center;
+
+    h2 {
+      margin-top: 0;
+    }
+
+    .booking-intro {
+      font-size: $font-size-lg;
+      color: $color-text-dark;
+      margin-bottom: $spacing-xl;
+    }
+
+    .calendly-widget {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: $border-radius-lg;
+      padding: $spacing-xxl;
+      margin-top: $spacing-xl;
+
+      .setup-notice {
+        font-size: $font-size-lg;
+        color: $color-secondary;
+        margin-bottom: $spacing-lg;
+      }
+
+      .temp-contact {
+        font-size: $font-size-base;
+        color: $color-text-dark;
+        margin-bottom: $spacing-lg;
+      }
+
+      .email-button {
+        display: inline-block;
+        background: linear-gradient(135deg, $color-accent 0%, darken($color-accent, 10%) 100%);
+        color: $color-text-dark;
+        padding: $spacing-md $spacing-xl;
+        border-radius: $border-radius-lg;
+        text-decoration: none;
+        font-weight: $font-weight-bold;
+        font-size: $font-size-lg;
+        margin-top: $spacing-md;
+        transition: all $transition-normal;
+        box-shadow: $box-shadow-sm;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: $box-shadow-md;
+          background: linear-gradient(135deg, lighten($color-accent, 5%) 0%, $color-accent 100%);
+        }
+      }
+    }
+  }
+
+  .faq-section {
+    margin: $spacing-xxl 0;
+
+    .faq-item {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(250, 250, 250, 0.9) 100%);
+      border: 2px solid rgba(75, 0, 130, 0.2);
+      border-radius: $border-radius-lg;
+      padding: $spacing-lg;
+      margin-bottom: $spacing-lg;
+      transition: all $transition-normal;
+
+      &:hover {
+        border-color: $color-accent;
+        box-shadow: $box-shadow-sm;
+      }
+
+      h3 {
+        margin-top: 0;
+      }
+
+      p {
+        color: $color-text-dark;
+        font-size: $font-size-base;
+        line-height: 1.7;
+        margin: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-tablet) {
+  .consultation {
+    padding: $spacing-xl $spacing-md;
+
+    .consultation-container {
+      h1 {
+        font-size: $font-size-xxl;
+      }
+
+      h2 {
+        font-size: $font-size-xl;
+      }
+    }
+
+    .consultation-hero {
+      padding: $spacing-lg;
+
+      .hero-content p {
+        font-size: $font-size-base;
+      }
+    }
+
+    .consultation-details {
+      grid-template-columns: 1fr;
+      gap: $spacing-lg;
+    }
+
+    .consultation-includes {
+      padding: $spacing-lg;
+
+      ul li {
+        font-size: $font-size-base;
+        padding-left: $spacing-xl;
+      }
+    }
+
+    .booking-section {
+      padding: $spacing-lg;
+    }
+  }
+}

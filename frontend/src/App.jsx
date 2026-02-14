@@ -4,6 +4,7 @@ import Accueil from './components/Accueil';
 import Vente from './components/Vente';
 import Tarifs from './components/Tarifs';
 import Contact from './components/Contact';
+import Consultation from './components/Consultation';
 import Blog from './components/Blog';
 import BlogArticle from './components/BlogArticle';
 import FormContainer from './components/FormContainer'; // ou ton composant principal
@@ -24,6 +25,7 @@ const App = () => {
             <Route path="/vente" element={<Vente />} />
             <Route path="/tarifs" element={<Tarifs />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/consultation" element={<Consultation />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogArticle />} />
             <Route path="/tirage" element={<FormContainer />} />
