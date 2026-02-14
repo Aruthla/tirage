@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../styles/Consultation.scss';
 
 const Consultation = () => {
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://assets.calendly.com/assets/external/widget.js';
+    script.async = true;
+    document.body.appendChild(script);
+    
+    return () => {
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []);
+
   return (
     <div className="consultation">
       <div className="consultation-container">
@@ -63,18 +76,11 @@ const Consultation = () => {
             dans votre fuseau horaire local.
           </p>
           
-          {/* Widget Calendly - À configurer par Isabelle */}
-          <div className="calendly-widget">
-            <p className="setup-notice">
-              🔧 <strong>Widget de réservation Calendly à venir</strong>
-            </p>
-            <p className="temp-contact">
-              En attendant, contactez-moi directement par email pour planifier votre consultation :
-              <a href="mailto:lemurmuredesrunes@outlook.fr" className="email-button">
-                lemurmuredesrunes@outlook.fr
-              </a>
-            </p>
-          </div>
+          <div 
+            className="calendly-inline-widget" 
+            data-url="https://calendly.com/lemurmuredesrunes/30min"
+            style={{ minWidth: '320px', height: '700px' }}
+          ></div>
         </div>
 
         <div className="faq-section">
