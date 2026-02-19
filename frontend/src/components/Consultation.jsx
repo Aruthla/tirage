@@ -50,7 +50,7 @@ const Consultation = () => {
             <div className="icon">🌍</div>
             <h3>Depuis chez vous</h3>
             <p className="highlight">En ligne</p>
-            <p>Via Google Meet ou Zoom, dans le confort de votre espace</p>
+            <p>Via Google Meet, dans le confort de votre espace</p>
           </div>
         </div>
 
@@ -89,7 +89,7 @@ const Consultation = () => {
           <div className="faq-item">
             <h3>Comment se déroule la visio ?</h3>
             <p>
-              Après votre réservation, vous recevrez un lien Google Meet ou Zoom par email. 
+              Après votre réservation, vous recevrez un lien Google Meet par email. 
               Il vous suffira de cliquer dessus à l'heure prévue.
             </p>
           </div>
