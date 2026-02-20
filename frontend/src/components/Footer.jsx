@@ -49,7 +49,7 @@ const Footer = () => {
         <p>
           Site créé par{' '}
           <a 
-            href="#" 
+            href="https://aruthla.github.io/Portfolio/" 
             target="_blank" 
             rel="noopener noreferrer"
             title="Laëtitia Borde - Développeuse web"
