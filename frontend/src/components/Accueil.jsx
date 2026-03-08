@@ -24,7 +24,7 @@ const Accueil = () => {
           <p>Utilisées à l'origine comme alphabet, elles sont aussi porteuses d'une dimension symbolique et spirituelle profonde.</p>
           <p>Le tirage de runes permet d'obtenir un éclairage sur une situation, de mieux comprendre certaines dynamiques personnelles et d'ouvrir de nouvelles perspectives.</p>
           <p>Ce site met à votre disposition des tirages de runes inspirés de la tradition nordique, pour vous accompagner dans votre réflexion et votre cheminement personnel.</p>
-        </div>        .\deploy-github.ps1
+        </div>
 
         <div className="accueil-buttons">
           <Link to="/tirage">
