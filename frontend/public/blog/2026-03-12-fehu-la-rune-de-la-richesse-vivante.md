@@ -6,18 +6,15 @@ summary: ""
 ---
 **Mots-clés de la rune FEHU**
 
-*  Richesse
-*  Abondance
-*  Bétail 
-*  Prospérité
-*  Ressources
-*  Gain
-*  Récompense
-*  Circulation de l'énergie
-*  Fertilité
-*  Début de prospérité
-
-
+* Richesse
+* Abondance
+* Bétail 
+* Prospérité
+* Ressources
+* Gain
+* Récompense
+* Circulation de l'énergie
+* Fertilité
 
 Fehu est la rune de la richesse et de l'abondance. Dans les sociétés nordiques anciennes, le bétail représentait la principale forme de richesse : il nourrissait, faisait vivre et assurait la prospérité du clan.
 
