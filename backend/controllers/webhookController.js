@@ -79,15 +79,23 @@ const handleWebhook = async (req, res) => {
         </ul>
       `;
 
+      // Vérification de la configuration Resend
+      console.log('📧 Configuration Resend:', {
+        hasApiKey: !!process.env.RESEND_API_KEY,
+        apiKeyPrefix: process.env.RESEND_API_KEY?.substring(0, 8),
+        fromEmail: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
+        toEmail: process.env.EMAIL_TO || 'lemurmuredesrunes@outlook.fr'
+      });
+
       // Envoi avec Resend
-      await resend.emails.send({
+      const adminEmailResult = await resend.emails.send({
         from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
         to: process.env.EMAIL_TO || 'lemurmuredesrunes@outlook.fr',
         subject: `💰 Nouveau paiement: ${userInfo.prenom || ''} ${userInfo.nom || ''} - ${purchaseAmount}€`,
         html: adminEmailHtml
       });
 
-      console.log('✅ Email de notification envoyé via Resend.');
+      console.log('✅ Email de notification envoyé via Resend:', adminEmailResult);
       
       // Si c'est le premier achat et qu'on a un email client, envoyer le code promo
       if (isFirstPurchase && customerEmail && promoCode) {
@@ -109,20 +117,22 @@ const handleWebhook = async (req, res) => {
             Le Murmure des Runes</p>
           `;
 
-          await resend.emails.send({
+          const welcomeEmailResult = await resend.emails.send({
             from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
             to: customerEmail,
             subject: '🎁 Votre code promo exclusif - Secrets des Runes',
             html: welcomeEmailHtml
           });
 
-          console.log(`✅ Email de bienvenue avec code promo envoyé à ${customerEmail}`);
+          console.log(`✅ Email de bienvenue avec code promo envoyé à ${customerEmail}:`, welcomeEmailResult);
         } catch (welcomeEmailErr) {
-          console.error('Erreur envoi email bienvenue:', welcomeEmailErr);
+          console.error('❌ Erreur détaillée envoi email bienvenue:', welcomeEmailErr);
         }
       }
     } catch (emailErr) {
-      console.error('Erreur envoi email webhook:', emailErr);
+      console.error('❌ Erreur détaillée envoi email webhook:', emailErr);
+      if (emailErr.message) console.error('Message d\'erreur:', emailErr.message);
+      if (emailErr.statusCode) console.error('Code HTTP:', emailErr.statusCode);
     }
   } else {
     console.log(`Événement non géré : ${event.type}`);
