@@ -109,6 +109,34 @@ const Tarifs = () => {
         ))}
       </div>
 
+      {/* Section Tirage en Visio */}
+      <div className="tirage-visio-section">
+        <div className="visio-card">
+          <div className="visio-badge">✨ En Direct</div>
+          <h2>Tirage de Runes en Visio</h2>
+          <div className="price">45€</div>
+          
+          <p className="description">
+            Un moment d'échange en direct pour explorer votre question à travers les runes 
+            et recevoir une guidance personnalisée.
+          </p>
+          
+          <ul className="features">
+            <li><span className="check">✓</span>Tirage de runes en direct</li>
+            <li><span className="check">✓</span>Question personnalisée ou situation à éclairer</li>
+            <li><span className="check">✓</span>Échanges et précisions pendant la séance</li>
+            <li><span className="check">✓</span>Interprétation approfondie des énergies</li>
+            <li><span className="check">✓</span>Guidance et conseils des runes</li>
+          </ul>
+
+          <div className="visio-info">
+            <p>📹 La consultation se déroule en visio sur rendez-vous.</p>
+            <p>⏱️ Durée variable selon les échanges et les questions, généralement autour d'une trentaine de minutes.</p>
+            <p>📧 <strong>Prise de rendez-vous :</strong> <Link to="/contact">contactez-moi par mail</Link>.</p>
+          </div>
+        </div>
+      </div>
+
       <div className="tarifs-cta">
         <p>Prêt à découvrir ce que les runes ont à vous révéler ?</p>
         <Link to="/tirage">

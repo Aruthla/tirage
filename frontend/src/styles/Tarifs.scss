@@ -139,6 +139,111 @@
     }
   }
 
+  .tirage-visio-section {
+    max-width: 900px;
+    margin: $spacing-xxl auto;
+    padding: 0 $spacing-md;
+
+    .visio-card {
+      background: linear-gradient(135deg, rgba(139, 69, 19, 0.08) 0%, rgba(75, 0, 130, 0.08) 100%);
+      border: 3px solid $color-primary;
+      border-radius: $border-radius-xl;
+      padding: $spacing-xxl;
+      box-shadow: $box-shadow-lg;
+      position: relative;
+      text-align: center;
+
+      .visio-badge {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, $color-primary 0%, darken($color-primary, 15%) 100%);
+        color: $color-text-white;
+        padding: $spacing-sm $spacing-lg;
+        border-radius: $border-radius-md;
+        font-size: $font-size-base;
+        font-weight: $font-weight-bold;
+        box-shadow: $box-shadow-md;
+      }
+
+      h2 {
+        color: $color-primary;
+        font-size: $font-size-xxl;
+        font-weight: $font-weight-bold;
+        margin-top: $spacing-md;
+        margin-bottom: $spacing-md;
+      }
+
+      .price {
+        font-size: 3rem;
+        font-weight: $font-weight-bold;
+        color: $color-accent;
+        margin-bottom: $spacing-lg;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      .description {
+        color: $color-text-dark;
+        font-size: $font-size-lg;
+        line-height: 1.8;
+        margin-bottom: $spacing-xl;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .features {
+        list-style: none;
+        padding: 0;
+        margin: 0 auto $spacing-xl;
+        max-width: 600px;
+        text-align: left;
+
+        li {
+          padding: $spacing-sm 0;
+          color: $color-text-dark;
+          font-size: $font-size-base;
+          display: flex;
+          align-items: flex-start;
+          gap: $spacing-sm;
+
+          .check {
+            color: $color-accent;
+            font-weight: $font-weight-bold;
+            font-size: $font-size-xl;
+            flex-shrink: 0;
+            margin-top: 2px;
+          }
+        }
+      }
+
+      .visio-info {
+        margin-top: $spacing-xl;
+        padding-top: $spacing-xl;
+        border-top: 2px solid rgba(75, 0, 130, 0.2);
+
+        p {
+          margin: $spacing-md 0;
+          color: $color-text-dark;
+          font-size: $font-size-base;
+          line-height: 1.6;
+
+          a {
+            color: $color-primary;
+            font-weight: $font-weight-bold;
+            text-decoration: underline;
+            transition: color $transition-normal;
+
+            &:hover {
+              color: $color-accent;
+            }
+          }
+        }
+      }
+    }
+  }
+
   .tarifs-cta {
     text-align: center;
     margin-top: $spacing-xxl;
