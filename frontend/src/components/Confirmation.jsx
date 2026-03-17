@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import emailjs from '@emailjs/browser';
 import '../styles/Confirmation.scss';
 
 const Confirmation = ({ formData }) => {
-  const [isSent, setIsSent] = useState(false);
+  const [isSent, setIsSent] = useState(true); // Toujours true car le backend gère l'envoi
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -14,50 +13,8 @@ const Confirmation = ({ formData }) => {
     ).join(', ');
   };
 
-  useEffect(() => {
-    const sendData = async () => {
-      try {
-        // Formatage des questions selon le type de tirage
-        let questionsText = 'Aucune';
-        if (formData.tirageType?.questions?.length > 0) {
-          // Cas tirage 4 runes avec sous-questions
-          questionsText = formData.tirageType.questions.join(', ');
-        } else if (formData.tirageType?.theme && formData.tirageType?.mainQuestion) {
-          // Cas tirage 1 ou 3 runes avec thème et question libre
-          questionsText = `Thème: ${formData.tirageType.theme} - Question: ${formData.tirageType.mainQuestion}`;
-        }
-
-        const templateParams = {
-          to_email: process.env.REACT_APP_EMAIL_TO || 'lemurmuredesrunes@outlook.fr',
-          from_name: `${formData.prenom} ${formData.nom}`,
-          nom: formData.nom,
-          prenom: formData.prenom,
-          email: formData.email,
-          telephone: formData.telephone || 'Non fourni',
-          sexe: formData.sexe || 'Non spécifié',
-          mode_paiement: formData.modePaiement || 'Non spécifié',
-          tirage_type: formData.tirageType?.tirageType || 'Non spécifié',
-          questions: questionsText,
-          runes: formatRunes(formData.runes),
-          subject: 'Nouveau tirage de runes'
-        };
-
-        await emailjs.send(
-          process.env.REACT_APP_EMAILJS_SERVICE_ID,
-          process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
-          templateParams,
-          process.env.REACT_APP_EMAILJS_PUBLIC_KEY
-        );
-
-        setIsSent(true);
-      } catch (err) {
-        console.error('Erreur EmailJS:', err);
-        setError(err.text || err.message || 'Échec de l\'envoi');
-      }
-    };
-
-    sendData();
-  }, [formData]);
+  // L'envoi d'email est maintenant géré par le webhook Stripe backend
+  // Pas besoin d'envoyer depuis le frontend
 
   const handleReturnHome = () => {
     navigate('/');
