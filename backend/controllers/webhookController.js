@@ -1,6 +1,7 @@
 const Stripe = require('stripe');
-const emailjs = require('@emailjs/nodejs');
+const { Resend } = require('resend');
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY);
 const { recordCustomerPurchase, hasCustomerPurchased, getPromoCodeForAmount } = require('../services/customerService');
 
 const handleWebhook = async (req, res) => {
@@ -52,54 +53,68 @@ const handleWebhook = async (req, res) => {
       // Préparer le code promo pour les nouveaux clients selon le montant
       const promoCode = isFirstPurchase ? getPromoCodeForAmount(purchaseAmount) : null;
 
-      // Envoi avec EmailJS
-      const templateParams = {
-        to_email: process.env.EMAIL_TO || 'lemurmuredesrunes@outlook.fr',
-        session_id: session.id,
-        amount: session.amount_total ? `${session.amount_total / 100}€` : 'N/A',
-        nom: userInfo.nom || 'N/A',
-        prenom: userInfo.prenom || 'N/A',
-        email: userInfo.email || customerEmail || 'N/A',
-        telephone: userInfo.telephone || 'N/A',
-        tirage_type: tirageType.tirageType || JSON.stringify(tirageType),
-        is_first_purchase: isFirstPurchase ? 'Oui (Premier achat)' : 'Non (Client récurrent)',
-        promo_code: promoCode || 'N/A'
-      };
+      // Créer l'email de notification admin
+      const adminEmailHtml = `
+        <h2>🔔 Nouveau paiement reçu sur Secrets des Runes</h2>
+        <h3>Informations client</h3>
+        <ul>
+          <li><strong>Nom :</strong> ${userInfo.nom || 'N/A'}</li>
+          <li><strong>Prénom :</strong> ${userInfo.prenom || 'N/A'}</li>
+          <li><strong>Email :</strong> ${userInfo.email || customerEmail || 'N/A'}</li>
+          <li><strong>Téléphone :</strong> ${userInfo.telephone || 'N/A'}</li>
+          <li><strong>Sexe :</strong> ${userInfo.sexe || 'N/A'}</li>
+        </ul>
+        <h3>Détails du tirage</h3>
+        <ul>
+          <li><strong>Type :</strong> ${tirageType.tirageType || 'N/A'}</li>
+          <li><strong>Thème :</strong> ${tirageType.theme || 'N/A'}</li>
+          <li><strong>Question :</strong> ${tirageType.mainQuestion || 'N/A'}</li>
+          <li><strong>Montant :</strong> ${purchaseAmount}€</li>
+        </ul>
+        <h3>Informations Stripe</h3>
+        <ul>
+          <li><strong>Session ID :</strong> ${session.id}</li>
+          <li><strong>Premier achat :</strong> ${isFirstPurchase ? '✅ Oui (Premier achat)' : 'Non (Client récurrent)'}</li>
+          <li><strong>Code promo attribué :</strong> ${promoCode || 'N/A'}</li>
+        </ul>
+      `;
 
-      await emailjs.send(
-        process.env.EMAILJS_SERVICE_ID,
-        process.env.EMAILJS_TEMPLATE_ID_PAYMENT,
-        templateParams,
-        {
-          publicKey: process.env.EMAILJS_PUBLIC_KEY,
-          privateKey: process.env.EMAILJS_PRIVATE_KEY
-        }
-      );
+      // Envoi avec Resend
+      await resend.emails.send({
+        from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
+        to: process.env.EMAIL_TO || 'lemurmuredesrunes@outlook.fr',
+        subject: `💰 Nouveau paiement: ${userInfo.prenom || ''} ${userInfo.nom || ''} - ${purchaseAmount}€`,
+        html: adminEmailHtml
+      });
 
-      console.log('Email de notification envoyé via EmailJS.');
+      console.log('✅ Email de notification envoyé via Resend.');
       
       // Si c'est le premier achat et qu'on a un email client, envoyer le code promo
       if (isFirstPurchase && customerEmail && promoCode) {
         console.log(`🎁 Premier achat détecté pour ${customerEmail} (${purchaseAmount}€), envoi du code promo: ${promoCode}`);
         
         try {
-          const welcomeTemplateParams = {
-            to_email: customerEmail,
-            customer_name: `${userInfo.prenom || ''} ${userInfo.nom || ''}`.trim() || 'Cher(e) client(e)',
-            promo_code: promoCode,
-            from_name: 'Le Murmure des Runes',
-            purchase_amount: `${purchaseAmount}€`
-          };
+          const customerName = `${userInfo.prenom || ''} ${userInfo.nom || ''}`.trim() || 'Cher(e) client(e)';
+          
+          const welcomeEmailHtml = `
+            <h2>🎁 Merci pour votre confiance !</h2>
+            <p>Bonjour ${customerName},</p>
+            <p>Merci pour votre achat de <strong>${purchaseAmount}€</strong> sur Secrets des Runes !</p>
+            <p>Pour vous remercier de votre confiance, voici un code promo exclusif pour votre prochaine commande :</p>
+            <div style="background-color: #f0f0f0; padding: 20px; text-align: center; font-size: 24px; font-weight: bold; margin: 20px 0;">
+              ${promoCode}
+            </div>
+            <p>Utilisez ce code lors de votre prochain tirage pour bénéficier d'une réduction.</p>
+            <p>À très bientôt,<br>
+            Le Murmure des Runes</p>
+          `;
 
-          await emailjs.send(
-            process.env.EMAILJS_SERVICE_ID,
-            process.env.EMAILJS_TEMPLATE_ID_WELCOME || process.env.EMAILJS_TEMPLATE_ID_PAYMENT,
-            welcomeTemplateParams,
-            {
-              publicKey: process.env.EMAILJS_PUBLIC_KEY,
-              privateKey: process.env.EMAILJS_PRIVATE_KEY
-            }
-          );
+          await resend.emails.send({
+            from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
+            to: customerEmail,
+            subject: '🎁 Votre code promo exclusif - Secrets des Runes',
+            html: welcomeEmailHtml
+          });
 
           console.log(`✅ Email de bienvenue avec code promo envoyé à ${customerEmail}`);
         } catch (welcomeEmailErr) {
