@@ -3,6 +3,8 @@ import '../styles/Payment.scss';
 
 const Payment = ({ onSuccess, onBack, amount, userInfo, tirageType }) => {
   const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+  const [promoCode, setPromoCode] = useState('');
+  const [showPromoField, setShowPromoField] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   // Mapping des tirages vers les Price IDs Stripe
@@ -39,6 +41,7 @@ const Payment = ({ onSuccess, onBack, amount, userInfo, tirageType }) => {
 
       const requestBody = { 
         priceId,
+        promoCode: promoCode.trim() || undefined,
         customerEmail: userInfo.email,
         metadata: pending 
       };
@@ -72,7 +75,30 @@ const Payment = ({ onSuccess, onBack, amount, userInfo, tirageType }) => {
     <div className="payment">
       <h2>Étape 3 : Paiement</h2>
       <p>Montant : <strong>{amount} €</strong></p>
-      <p className="promo-info">💡 Après votre premier achat, vous recevrez un code promo exclusif pour bénéficier de votre prochain tirage offert !</p>
+
+      {/* Champ code promo */}
+      <div className="promo-section">
+        {!showPromoField ? (
+          <button 
+            type="button" 
+            className="show-promo-btn"
+            onClick={() => setShowPromoField(true)}
+          >
+            J'ai un code promo 🎁
+          </button>
+        ) : (
+          <div className="promo-input-group">
+            <input
+              type="text"
+              placeholder="Entrez votre code promo"
+              value={promoCode}
+              onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
+              className="promo-input"
+            />
+            <small className="promo-hint">💡 Après votre premier achat sans code promo, vous recevrez un code exclusif par email pour votre prochain tirage offert !</small>
+          </div>
+        )}
+      </div>
 
       <div className="payment-buttons">
         <button onClick={handleCheckout} disabled={isLoading}>

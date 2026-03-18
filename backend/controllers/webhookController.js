@@ -37,6 +37,11 @@ const handleWebhook = async (req, res) => {
       // Vérifier si c'est le premier achat
       const isFirstPurchase = customerEmail ? !hasCustomerPurchased(customerEmail) : false;
 
+      // Vérifier si un code promo a été utilisé pour cet achat
+      const usedPromoCode = session.total_details?.amount_discount > 0 || 
+                            (session.discount && session.discount.coupon) ||
+                            (session.discounts && session.discounts.length > 0);
+
       // Calculer le montant de l'achat
       const purchaseAmount = session.amount_total / 100; // Convertir de centimes en euros
 
@@ -134,9 +139,9 @@ const handleWebhook = async (req, res) => {
 
       console.log('✅ Email de notification envoyé via Resend:', adminEmailResult);
       
-      // Si c'est le premier achat et qu'on a un email client, envoyer le code promo
-      if (isFirstPurchase && customerEmail && promoCode) {
-        console.log(`🎁 Premier achat détecté pour ${customerEmail} (${purchaseAmount}€), envoi du code promo: ${promoCode}`);
+      // Si c'est le premier achat SANS code promo utilisé, envoyer un code promo
+      if (isFirstPurchase && customerEmail && promoCode && !usedPromoCode) {
+        console.log(`🎁 Premier achat sans code promo pour ${customerEmail} (${purchaseAmount}€), envoi du code: ${promoCode}`);
         
         try {
           const customerName = `${userInfo.prenom || ''} ${userInfo.nom || ''}`.trim() || 'Cher(e) client(e)';
