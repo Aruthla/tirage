@@ -22,6 +22,42 @@
     text-align: center;
   }
 
+  .success-message {
+    color: #4CAF50;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-xl;
+  }
+
+  .email-notice {
+    background: linear-gradient(135deg, rgba(75, 0, 130, 0.1) 0%, rgba(139, 69, 19, 0.1) 100%);
+    padding: $spacing-lg;
+    border-radius: $border-radius-lg;
+    border-left: 4px solid $color-accent;
+    margin: $spacing-xl auto;
+    max-width: 700px;
+    box-shadow: $box-shadow-sm;
+
+    p {
+      color: $color-text-light;
+      font-size: $font-size-base;
+      margin-bottom: $spacing-sm;
+      text-align: left;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .delay-info {
+      color: $color-text-dark;
+      font-size: $font-size-sm;
+      font-style: italic;
+      margin-top: $spacing-md;
+      padding-top: $spacing-md;
+      border-top: 1px solid rgba(139, 69, 19, 0.2);
+    }
+  }
+
   .error {
     color: #ff4444;
     font-weight: $font-weight-bold;

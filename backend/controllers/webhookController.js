@@ -55,28 +55,65 @@ const handleWebhook = async (req, res) => {
 
       // Créer l'email de notification admin
       const adminEmailHtml = `
-        <h2>🔔 Nouveau paiement reçu sur Secrets des Runes</h2>
-        <h3>Informations client</h3>
-        <ul>
-          <li><strong>Nom :</strong> ${userInfo.nom || 'N/A'}</li>
-          <li><strong>Prénom :</strong> ${userInfo.prenom || 'N/A'}</li>
-          <li><strong>Email :</strong> ${userInfo.email || customerEmail || 'N/A'}</li>
-          <li><strong>Téléphone :</strong> ${userInfo.telephone || 'N/A'}</li>
-          <li><strong>Sexe :</strong> ${userInfo.sexe || 'N/A'}</li>
-        </ul>
-        <h3>Détails du tirage</h3>
-        <ul>
-          <li><strong>Type :</strong> ${tirageType.tirageType || 'N/A'}</li>
-          <li><strong>Thème :</strong> ${tirageType.theme || 'N/A'}</li>
-          <li><strong>Question :</strong> ${tirageType.mainQuestion || 'N/A'}</li>
-          <li><strong>Montant :</strong> ${purchaseAmount}€</li>
-        </ul>
-        <h3>Informations Stripe</h3>
-        <ul>
-          <li><strong>Session ID :</strong> ${session.id}</li>
-          <li><strong>Premier achat :</strong> ${isFirstPurchase ? '✅ Oui (Premier achat)' : 'Non (Client récurrent)'}</li>
-          <li><strong>Code promo attribué :</strong> ${promoCode || 'N/A'}</li>
-        </ul>
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f4; margin: 0; padding: 0; }
+            .container { max-width: 600px; margin: 20px auto; background: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow: hidden; }
+            .header { background: linear-gradient(135deg, #4B0082 0%, #8B4513 100%); color: #ffffff; padding: 30px; text-align: center; }
+            .header h1 { margin: 0; font-size: 24px; }
+            .content { padding: 30px; }
+            .section { margin-bottom: 25px; }
+            .section h2 { color: #4B0082; font-size: 18px; margin-bottom: 15px; border-bottom: 2px solid #DAA520; padding-bottom: 5px; }
+            .info-table { width: 100%; }
+            .info-table td { padding: 8px 0; }
+            .info-table td:first-child { font-weight: bold; color: #4B0082; width: 40%; }
+            .badge { display: inline-block; padding: 5px 10px; background: #4CAF50; color: white; border-radius: 5px; font-size: 12px; }
+            .footer { background: #f8f8f8; padding: 20px; text-align: center; color: #666; font-size: 12px; }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            <div class="header">
+              <h1>🔔 Nouveau Paiement Reçu</h1>
+              <p style="margin: 5px 0 0 0;">Secrets des Runes</p>
+            </div>
+            <div class="content">
+              <div class="section">
+                <h2>👤 Informations Client</h2>
+                <table class="info-table">
+                  <tr><td>Nom :</td><td>${userInfo.nom || 'N/A'}</td></tr>
+                  <tr><td>Prénom :</td><td>${userInfo.prenom || 'N/A'}</td></tr>
+                  <tr><td>Email :</td><td>${userInfo.email || customerEmail || 'N/A'}</td></tr>
+                  <tr><td>Téléphone :</td><td>${userInfo.telephone || 'N/A'}</td></tr>
+                  <tr><td>Sexe :</td><td>${userInfo.sexe || 'N/A'}</td></tr>
+                </table>
+              </div>
+              <div class="section">
+                <h2>🎴 Détails du Tirage</h2>
+                <table class="info-table">
+                  <tr><td>Type :</td><td>${tirageType.tirageType || 'N/A'}</td></tr>
+                  <tr><td>Thème :</td><td>${tirageType.theme || 'N/A'}</td></tr>
+                  <tr><td>Question :</td><td>${tirageType.mainQuestion || 'N/A'}</td></tr>
+                  <tr><td>Montant :</td><td><strong style="color: #DAA520; font-size: 18px;">${purchaseAmount}€</strong></td></tr>
+                </table>
+              </div>
+              <div class="section">
+                <h2>💳 Informations Stripe</h2>
+                <table class="info-table">
+                  <tr><td>Session ID :</td><td>${session.id}</td></tr>
+                  <tr><td>Premier achat :</td><td>${isFirstPurchase ? '<span class="badge">✅ Oui (Premier achat)</span>' : 'Non (Client récurrent)'}</td></tr>
+                  <tr><td>Code promo :</td><td>${promoCode || 'N/A'}</td></tr>
+                </table>
+              </div>
+            </div>
+            <div class="footer">
+              <p>Email automatique envoyé par secretsdesrunes.com</p>
+            </div>
+          </div>
+        </body>
+        </html>
       `;
 
       // Vérification de la configuration Resend
@@ -105,16 +142,58 @@ const handleWebhook = async (req, res) => {
           const customerName = `${userInfo.prenom || ''} ${userInfo.nom || ''}`.trim() || 'Cher(e) client(e)';
           
           const welcomeEmailHtml = `
-            <h2>🎁 Merci pour votre confiance !</h2>
-            <p>Bonjour ${customerName},</p>
-            <p>Merci pour votre achat de <strong>${purchaseAmount}€</strong> sur Secrets des Runes !</p>
-            <p>Pour vous remercier de votre confiance, voici un code promo exclusif pour votre prochaine commande :</p>
-            <div style="background-color: #f0f0f0; padding: 20px; text-align: center; font-size: 24px; font-weight: bold; margin: 20px 0;">
-              ${promoCode}
-            </div>
-            <p>Utilisez ce code lors de votre prochain tirage pour bénéficier d'une réduction.</p>
-            <p>À très bientôt,<br>
-            Le Murmure des Runes</p>
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <style>
+                body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f4f4f4; margin: 0; padding: 0; }
+                .container { max-width: 600px; margin: 20px auto; background: #ffffff; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow: hidden; }
+                .header { background: linear-gradient(135deg, #4B0082 0%, #8B4513 100%); color: #ffffff; padding: 40px 30px; text-align: center; }
+                .header h1 { margin: 0; font-size: 28px; }
+                .content { padding: 40px 30px; }
+                .greeting { font-size: 18px; color: #4B0082; margin-bottom: 20px; }
+                .promo-box { background: linear-gradient(135deg, #4B0082 0%, #6A0DAD 100%); color: #ffffff; padding: 30px; text-align: center; border-radius: 10px; margin: 30px 0; box-shadow: 0 4px 15px rgba(75, 0, 130, 0.3); }
+                .promo-label { font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; opacity: 0.9; }
+                .promo-code { font-size: 36px; font-weight: bold; letter-spacing: 4px; padding: 15px; background: rgba(255, 255, 255, 0.2); border-radius: 5px; margin: 10px 0; }
+                .promo-description { font-size: 14px; margin-top: 15px; opacity: 0.9; }
+                .message { color: #555; line-height: 1.8; margin: 20px 0; }
+                .signature { margin-top: 30px; padding-top: 20px; border-top: 2px solid #f0f0f0; color: #666; }
+                .footer { background: #f8f8f8; padding: 20px; text-align: center; color: #666; font-size: 12px; }
+              </style>
+            </head>
+            <body>
+              <div class="container">
+                <div class="header">
+                  <h1>🎁 Merci pour votre confiance !</h1>
+                </div>
+                <div class="content">
+                  <p class="greeting">Bonjour ${customerName},</p>
+                  <p class="message">
+                    Merci pour votre achat de <strong style="color: #DAA520;">${purchaseAmount}€</strong> sur Secrets des Runes !
+                  </p>
+                  <p class="message">
+                    Pour vous remercier de votre confiance, voici un code promo exclusif pour votre prochaine commande :
+                  </p>
+                  <div class="promo-box">
+                    <div class="promo-label">Votre Code Promo</div>
+                    <div class="promo-code">${promoCode}</div>
+                    <div class="promo-description">Utilisez ce code lors de votre prochain tirage</div>
+                  </div>
+                  <p class="message">
+                    Entrez simplement ce code lors du paiement pour bénéficier de votre réduction.
+                  </p>
+                  <div class="signature">
+                    <p>À très bientôt,<br>
+                    <strong>Le Murmure des Runes</strong></p>
+                  </div>
+                </div>
+                <div class="footer">
+                  <p>Email automatique envoyé par secretsdesrunes.com</p>
+                  <p>Si vous avez des questions, n'hésitez pas à nous contacter.</p>
+                </div>
+              </div>
+            </body>
+            </html>
           `;
 
           const welcomeEmailResult = await resend.emails.send({

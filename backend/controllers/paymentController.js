@@ -38,9 +38,23 @@ const createCheckoutSession = async (req, res) => {
       allow_promotion_codes: true, // Permet d'entrer des codes promo dans Stripe Checkout
     };
 
-    // Si un code promo est fourni, le valider et l'appliquer
+    // Si un code promo est fourni, vérifier d'abord si c'est un client existant
     if (promoCode) {
-      console.log('🎁 Validation du code promo:', promoCode);
+      console.log('🎁 Code promo reçu:', promoCode);
+      
+      // Vérifier si c'est un nouveau client
+      const isNewCustomer = customerEmail ? !hasCustomerPurchased(customerEmail) : true;
+      
+      if (isNewCustomer) {
+        console.log('❌ Code promo refusé : nouveau client');
+        return res.status(400).json({ 
+          error: 'Code promo non applicable',
+          message: 'Les codes promo sont réservés aux clients existants. Effectuez votre premier achat pour recevoir un code promo exclusif !' 
+        });
+      }
+      
+      // Si client existant, valider et appliquer le code
+      console.log('🎁 Validation du code promo pour client existant:', promoCode);
       const promoValidation = await validatePromoCode(promoCode);
       
       if (promoValidation.valid) {

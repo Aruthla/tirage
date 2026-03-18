@@ -25,7 +25,16 @@ const Confirmation = ({ formData }) => {
       <h2>Confirmation</h2>
 
       {isSent ? (
-        <p>Votre tirage a bien été envoyé. Merci ! 🙏</p>
+        <>
+          <p className="success-message">Votre tirage a bien été envoyé. Merci ! 🙏</p>
+          <div className="email-notice">
+            <p>📧 <strong>Important :</strong> Vous allez recevoir un email avec votre interprétation des runes.</p>
+            <p className="delay-info">
+              ⏱️ La réception peut prendre quelques minutes, voire jusqu'à une heure dans certains cas. 
+              Pensez à vérifier vos <strong>courriers indésirables / spams</strong> si vous ne le voyez pas dans votre boîte principale.
+            </p>
+          </div>
+        </>
       ) : error ? (
         <p className="error">Erreur : {error}</p>
       ) : (
