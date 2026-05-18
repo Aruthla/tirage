@@ -1,5 +1,5 @@
 ---
-title: THURISAZ - La rune de la force protectrice
+title: La rune THURISAZ - La rune de la force protectrice
 date: 2026-04-25T14:58:00.000-04:00
 image: /uploads/2ca52fa5-6be5-4fdf-853e-a26eb38355b2.png
 ---
